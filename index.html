@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IslamTube</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-[#0f0f0f] text-white min-h-screen flex flex-col pb-16">
+
+    <!-- Top Header -->
+    <header class="sticky top-0 z-50 bg-[#0f0f0f]/95 backdrop-blur flex items-center justify-between px-4 py-2.5 border-b border-[#272727]">
+        <div class="flex items-center gap-2">
+            <div class="w-7 h-7 bg-red-600 rounded-md flex items-center justify-center">
+                <i class="fa-solid fa-play text-white text-xs"></i>
+            </div>
+            <span class="font-bold text-base tracking-tight">Islamtube</span>
+        </div>
+        <div class="flex items-center gap-5 text-lg">
+            <i class="fa-solid fa-bell cursor-pointer text-gray-300"></i>
+            <i class="fa-solid fa-moon cursor-pointer text-gray-300"></i>
+            <i class="fa-solid fa-search cursor-pointer text-gray-300"></i>
+        </div>
+    </header>
+
+    <!-- Category Filters Bar -->
+    <div class="sticky top-[45px] z-40 bg-[#0f0f0f] px-3 py-2 flex gap-2 overflow-x-auto no-scrollbar border-b border-[#272727]">
+        <button class="bg-[#272727] p-2 rounded-lg text-sm"><i class="fa-solid fa-compass text-green-400"></i></button>
+        <button class="bg-white text-black px-3 py-1 rounded-lg text-xs font-semibold whitespace-nowrap">All</button>
+        <button class="bg-[#272727] text-white px-3 py-1 rounded-lg text-xs font-semibold whitespace-nowrap">Quran</button>
+        <button class="bg-[#272727] text-white px-3 py-1 rounded-lg text-xs font-semibold whitespace-nowrap">Naat</button>
+        <button class="bg-[#272727] text-white px-3 py-1 rounded-lg text-xs font-semibold whitespace-nowrap">Molvi</button>
+        <button class="bg-[#272727] text-white px-3 py-1 rounded-lg text-xs font-semibold whitespace-nowrap">Cartoon</button>
+        <button class="bg-[#272727] text-white px-3 py-1 rounded-lg text-xs font-semibold whitespace-nowrap">Islamic Stories</button>
+    </div>
+
+    <!-- Main Feed (Infinite Cards) -->
+    <main id="videoFeed" class="flex-1 space-y-4 pt-3">
+        <!-- Dynamic Cards will load here -->
+    </main>
+
+    <!-- Bottom Navigation -->
+    <nav class="fixed bottom-0 left-0 right-0 bg-[#0f0f0f] border-t border-[#272727] flex justify-around py-2.5 text-[10px] z-50">
+        <div class="text-center text-red-500"><i class="fa-solid fa-house text-lg block mb-0.5"></i>Home</div>
+        <div class="text-center text-gray-400"><i class="fa-solid fa-bolt text-lg block mb-0.5"></i>Shorts</div>
+        <div class="text-center text-gray-400"><i class="fa-solid fa-circle-play text-lg block mb-0.5"></i>Subscriptions</div>
+        <div class="text-center text-gray-400"><i class="fa-solid fa-user text-lg block mb-0.5"></i>You</div>
+    </nav>
+
+    <script>
+        const sampleTitles = [
+            "Baiton ke baad Jamima Khan ne company pe aiyy hamla kar diya",
+            "Quran Tilawat with Urdu Translation - Heart Touching",
+            "Beautiful Naat Shareef 2026 - Best Voice",
+            "Islamic Historical Documentary - Waqar Malik",
+            "The True Story of Sahaba - Emotional Bayan"
+        ];
+        
+        const channels = ["Waqar Malik", "Madani Channel", "Islamic Info", "Quran Global"];
+        
+        const feed = document.getElementById('videoFeed');
+
+        function loadMoreVideos() {
+            for(let i=0; i<5; i++) {
+                const title = sampleTitles[Math.floor(Math.random() * sampleTitles.length)];
+                const channel = channels[Math.floor(Math.random() * channels.length)];
+                
+                const card = document.createElement('div');
+                card.className = "bg-[#141414] border-b border-[#222] pb-3 cursor-pointer";
+                card.innerHTML = `
+                    <div class="relative aspect-video bg-black">
+                        <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=600" class="w-full h-full object-cover">
+                        <span class="absolute bottom-2 right-2 bg-black/80 text-[11px] px-1.5 py-0.5 rounded font-medium">22:58</span>
+                    </div>
+                    <div class="p-3 flex gap-3">
+                        <div class="w-9 h-9 rounded-full bg-red-600 flex items-center justify-center font-bold text-sm flex-shrink-0">${channel[0]}</div>
+                        <div class="flex-1">
+                            <h3 class="font-semibold text-sm line-clamp-2 leading-snug">${title}</h3>
+                            <p class="text-xs text-gray-400 mt-1">${channel} • 68K views • Streamed 3 hours ago</p>
+                        </div>
+                        <i class="fa-solid fa-ellipsis-vertical text-gray-400 p-1"></i>
+                    </div>
+                `;
+                feed.appendChild(card);
+            }
+        }
+
+        // Initial Load
+        loadMoreVideos();
+
+        // Infinite Scroll (Jitna scroll karoge, naye cards aate jayenge)
+        window.addEventListener('scroll', () => {
+            if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 500) {
+                loadMoreVideos();
+            }
+        });
+    </script>
+</body>
+</html>
+  
