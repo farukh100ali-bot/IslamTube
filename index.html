@@ -1,344 +1,285 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IslamTube</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IslamTube - Ultimate Islamic Platform</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    .snap-y-mandatory { scroll-snap-type: y mandatory; }
+    .snap-start { scroll-snap-align: start; }
+  </style>
 </head>
-<body class="bg-[#0f0f0f] text-white min-h-screen flex flex-col pb-16 select-none">
+<body class="bg-[#0f0f0f] text-white min-h-screen flex flex-col select-none font-sans">
 
-    <!-- Top Header -->
-    <header class="sticky top-0 z-50 bg-[#0f0f0f]/95 backdrop-blur flex items-center justify-between px-4 py-2.5 border-b border-[#272727]">
-        <div class="flex items-center gap-2 cursor-pointer" onclick="switchTab('home')">
-            <div class="w-7 h-7 bg-[#86efac] rounded-md flex items-center justify-center">
-                <i class="fa-solid fa-play text-black text-xs"></i>
-            </div>
-            <span class="font-bold text-base tracking-tight text-[#86efac]">Islamtube</span>
-        </div>
-        <div class="flex items-center gap-5 text-lg">
-            <i class="fa-solid fa-bell cursor-pointer text-gray-300 hover:text-[#86efac]" onclick="toggleNotification()"></i>
-            <i class="fa-solid fa-search cursor-pointer text-gray-300 hover:text-[#86efac]" onclick="toggleSearch()"></i>
-        </div>
-    </header>
-
-    <!-- Search Bar Modal -->
-    <div id="searchBar" class="hidden sticky top-[45px] z-50 bg-[#1f1f1f] p-2 border-b border-[#272727]">
-        <div class="flex items-center bg-[#0f0f0f] rounded-full px-3 py-1.5 border border-[#333]">
-            <input id="searchInput" type="text" placeholder="Search IslamTube..." class="bg-transparent text-sm text-white focus:outline-none w-full">
-            <i class="fa-solid fa-xmark text-gray-400 cursor-pointer ml-2" onclick="toggleSearch()"></i>
-        </div>
-    </div>
-
-    <!-- Notification Toast -->
-    <div id="toast" class="hidden fixed top-14 right-4 z-50 bg-[#86efac] text-black text-xs font-semibold px-4 py-2 rounded-lg shadow-lg">
-        No new notifications!
-    </div>
-
-    <!-- VIEWS CONTAINER -->
-    <div id="viewsContainer" class="flex-1 w-full">
-        
-        <!-- HOME VIEW -->
-        <div id="view-home" class="block">
-            <!-- Category Filters -->
-            <div class="sticky top-[45px] z-40 bg-[#0f0f0f] px-3 py-2 flex gap-2 overflow-x-auto no-scrollbar border-b border-[#272727]">
-                <button class="bg-[#272727] p-2 rounded-lg text-sm"><i class="fa-solid fa-compass text-[#86efac]"></i></button>
-                <button class="bg-[#86efac] text-black px-3 py-1 rounded-lg text-xs font-semibold whitespace-nowrap">All</button>
-                <button class="bg-[#272727] text-white px-3 py-1 rounded-lg text-xs font-semibold whitespace-nowrap hover:bg-[#333]">Quran</button>
-                <button class="bg-[#272727] text-white px-3 py-1 rounded-lg text-xs font-semibold whitespace-nowrap hover:bg-[#333]">Naat</button>
-                <button class="bg-[#272727] text-white px-3 py-1 rounded-lg text-xs font-semibold whitespace-nowrap hover:bg-[#333]">Molvi</button>
-                <button class="bg-[#272727] text-white px-3 py-1 rounded-lg text-xs font-semibold whitespace-nowrap hover:bg-[#333]">Cartoon</button>
-                <button class="bg-[#272727] text-white px-3 py-1 rounded-lg text-xs font-semibold whitespace-nowrap hover:bg-[#333]">Islamic Stories</button>
-            </div>
-
-            <!-- Feed -->
-            <main class="space-y-3 pt-2">
-                <!-- Main Infinite Video Container -->
-                <div id="infiniteFeed" class="space-y-3">
-                    <!-- Cards will be dynamically added via JavaScript -->
-                </div>
-
-                <!-- Horizontal Shorts Section -->
-                <div class="py-3 border-y border-[#272727] my-2">
-                    <div class="flex items-center gap-2 px-3 mb-3">
-                        <i class="fa-solid fa-bolt text-[#86efac] text-xl"></i>
-                        <h2 class="font-bold text-lg">Shorts</h2>
-                    </div>
-                    <div class="flex gap-2 overflow-x-auto px-3 no-scrollbar">
-                        <div class="min-w-[140px] h-[240px] rounded-xl overflow-hidden relative bg-gray-800 cursor-pointer" onclick="switchTab('shorts')">
-                            <img src="https://images.unsplash.com/photo-1585036156171-384164a8c675?auto=format&fit=crop&q=80&w=300" class="w-full h-full object-cover opacity-80">
-                            <div class="absolute bottom-2 left-2 right-2">
-                                <p class="font-semibold text-xs line-clamp-2">Heart Touching Quran Status</p>
-                                <p class="text-[10px] text-[#86efac]">2.1M views</p>
-                            </div>
-                        </div>
-                        <div class="min-w-[140px] h-[240px] rounded-xl overflow-hidden relative bg-gray-800 cursor-pointer" onclick="switchTab('shorts')">
-                            <img src="https://images.unsplash.com/photo-1591557304193-4e4b52b31a31?auto=format&fit=crop&q=80&w=300" class="w-full h-full object-cover opacity-80">
-                            <div class="absolute bottom-2 left-2 right-2">
-                                <p class="font-semibold text-xs line-clamp-2">Beautiful Makkah View</p>
-                                <p class="text-[10px] text-[#86efac]">3.8M views</p>
-                            </div>
-                        </div>
-                        <div class="min-w-[140px] h-[240px] rounded-xl overflow-hidden relative bg-gray-800 cursor-pointer" onclick="switchTab('shorts')">
-                            <img src="https://images.unsplash.com/photo-1542810634-71277d95dcbb?auto=format&fit=crop&q=80&w=300" class="w-full h-full object-cover opacity-80">
-                            <div class="absolute bottom-2 left-2 right-2">
-                                <p class="font-semibold text-xs line-clamp-2">Madina Sharif Climate</p>
-                                <p class="text-[10px] text-[#86efac]">1.5M views</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </main>
-        </div>
-
-        <!-- SHORTS VIEW -->
-        <div id="view-shorts" class="hidden h-[calc(100vh-110px)] flex flex-col items-center justify-center p-4">
-            <div class="w-full max-w-sm h-full bg-gray-900 rounded-2xl overflow-hidden relative border border-[#272727] flex flex-col justify-end p-4">
-                <img src="https://images.unsplash.com/photo-1585036156171-384164a8c675?auto=format&fit=crop&q=80&w=600" class="absolute inset-0 w-full h-full object-cover opacity-70">
-                <div class="relative z-10 space-y-2">
-                    <span class="bg-[#86efac] text-black text-[10px] font-bold px-2 py-0.5 rounded">FEATURED SHORT</span>
-                    <h3 class="font-bold text-base">Beautiful Islamic Reminder</h3>
-                    <p class="text-xs text-gray-300">@islamic_shorts • 2.1M views</p>
-                </div>
-                <!-- Action sidebar -->
-                <div class="absolute right-3 bottom-12 z-10 flex flex-col items-center gap-5 text-xl">
-                    <button class="flex flex-col items-center text-xs" onclick="this.querySelector('i').classList.toggle('text-[#86efac]')"><i class="fa-solid fa-thumbs-up text-xl"></i><span>120K</span></button>
-                    <button class="flex flex-col items-center text-xs"><i class="fa-solid fa-comment text-xl"></i><span>450</span></button>
-                    <button class="flex flex-col items-center text-xs" onclick="alert('Short Link Copied!')"><i class="fa-solid fa-share text-xl"></i><span>Share</span></button>
-                </div>
-            </div>
-        </div>
-
-        <!-- SUBSCRIPTIONS VIEW -->
-        <div id="view-subs" class="hidden p-4 space-y-4">
-            <h2 class="font-bold text-lg text-[#86efac]">Subscribed Channels</h2>
-            <div class="space-y-3">
-                <div class="flex items-center justify-between bg-[#1f1f1f] p-3 rounded-xl">
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-[#86efac] text-black font-bold flex items-center justify-center">Q</div>
-                        <div>
-                            <h4 class="font-semibold text-sm">Quran Global</h4>
-                            <p class="text-xs text-gray-400">1.2M Subscribers</p>
-                        </div>
-                    </div>
-                    <button onclick="toggleSub(this)" class="bg-[#272727] text-white px-3 py-1 rounded-full text-xs">Subscribed</button>
-                </div>
-                <div class="flex items-center justify-between bg-[#1f1f1f] p-3 rounded-xl">
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-blue-600 text-white font-bold flex items-center justify-center">W</div>
-                        <div>
-                            <h4 class="font-semibold text-sm">Waqar Malik</h4>
-                            <p class="text-xs text-gray-400">850K Subscribers</p>
-                        </div>
-                    </div>
-                    <button onclick="toggleSub(this)" class="bg-[#272727] text-white px-3 py-1 rounded-full text-xs">Subscribed</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- YOU VIEW -->
-        <div id="view-you" class="hidden p-4 pt-6 space-y-6">
-            <div class="flex items-center gap-4 bg-[#1f1f1f] p-4 rounded-2xl border border-[#272727]">
-                <div class="w-14 h-14 rounded-full bg-[#86efac] text-black font-bold text-xl flex items-center justify-center">U</div>
-                <div>
-                    <h2 class="font-bold text-lg">User Profile</h2>
-                    <p class="text-xs text-gray-400">@islamtube_official</p>
-                </div>
-            </div>
-            <div class="space-y-2">
-                <div class="flex items-center gap-4 p-3 bg-[#1f1f1f] rounded-xl cursor-pointer hover:bg-[#272727]"><i class="fa-solid fa-clock-rotate-left text-[#86efac] w-5"></i><span>Watch History</span></div>
-                <div class="flex items-center gap-4 p-3 bg-[#1f1f1f] rounded-xl cursor-pointer hover:bg-[#272727]"><i class="fa-solid fa-[#86efac] fa-thumbs-up text-[#86efac] w-5"></i><span>Liked Videos</span></div>
-                <div class="flex items-center gap-4 p-3 bg-[#1f1f1f] rounded-xl cursor-pointer hover:bg-[#272727]"><i class="fa-solid fa-download text-[#86efac] w-5"></i><span>Downloads</span></div>
-                <div class="flex items-center gap-4 p-3 bg-[#1f1f1f] rounded-xl cursor-pointer hover:bg-[#272727]"><i class="fa-solid fa-gear text-gray-400 w-5"></i><span>Settings</span></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Video Player Modal -->
-    <div id="playerModal" class="fixed inset-0 bg-[#0f0f0f] z-[100] hidden flex flex-col overflow-y-auto">
-        <div class="sticky top-0 z-10 bg-[#0f0f0f] p-2 flex items-center gap-3 border-b border-[#272727]">
-            <button onclick="closePlayer()" class="p-2 text-lg text-[#86efac]"><i class="fa-solid fa-arrow-left"></i></button>
-            <span id="modalHeaderTitle" class="text-xs font-semibold truncate flex-1">Now Playing</span>
-        </div>
-        <div class="w-full aspect-video bg-black sticky top-[45px] z-10">
-            <iframe id="ytIframe" class="w-full h-full" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-        </div>
-        <div class="p-4 space-y-4">
-            <div>
-                <h2 id="modalTitle" class="font-bold text-base leading-snug">Video Title</h2>
-                <p id="modalViews" class="text-xs text-gray-400 mt-1">1.2M views • 2 days ago</p>
-            </div>
-            
-            <div class="flex items-center justify-between py-2 border-y border-[#272727]">
-                <div class="flex items-center gap-3">
-                    <div id="modalAvatar" class="w-9 h-9 rounded-full bg-[#86efac] text-black font-bold flex items-center justify-center text-sm">C</div>
-                    <div>
-                        <h4 id="modalChannel" class="font-semibold text-xs">Channel Name</h4>
-                        <p class="text-[10px] text-gray-400">1.2M Subscribers</p>
-                    </div>
-                </div>
-                <button onclick="toggleSub(this)" class="bg-[#86efac] text-black font-bold px-4 py-1.5 rounded-full text-xs">Subscribe</button>
-            </div>
-
-            <div class="flex gap-3 overflow-x-auto no-scrollbar py-1">
-                <button onclick="alert('Added to Liked Videos!')" class="bg-[#272727] px-4 py-2 rounded-full text-xs flex items-center gap-2"><i class="fa-solid fa-thumbs-up text-[#86efac]"></i> Like</button>
-                <button onclick="alert('Video Downloaded!')" class="bg-[#272727] px-4 py-2 rounded-full text-xs flex items-center gap-2"><i class="fa-solid fa-download text-[#86efac]"></i> Download</button>
-                <button onclick="alert('Link Copied!')" class="bg-[#272727] px-4 py-2 rounded-full text-xs flex items-center gap-2"><i class="fa-solid fa-share text-[#86efac]"></i> Share</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Bottom Navigation -->
-    <nav class="fixed bottom-0 left-0 right-0 bg-[#0f0f0f] border-t border-[#272727] flex justify-around py-2.5 text-[10px] z-50">
-        <div onclick="switchTab('home')" id="nav-home" class="nav-btn text-center text-[#86efac] cursor-pointer"><i class="fa-solid fa-house text-lg block mb-0.5"></i>Home</div>
-        <div onclick="switchTab('shorts')" id="nav-shorts" class="nav-btn text-center text-gray-400 cursor-pointer"><i class="fa-solid fa-bolt text-lg block mb-0.5"></i>Shorts</div>
-        <div onclick="switchTab('subs')" id="nav-subs" class="nav-btn text-center text-gray-400 cursor-pointer"><i class="fa-solid fa-circle-play text-lg block mb-0.5"></i>Subscriptions</div>
-        <div onclick="switchTab('you')" id="nav-you" class="nav-btn text-center text-gray-400 cursor-pointer"><i class="fa-solid fa-user text-lg block mb-0.5"></i>You</div>
-    </nav>
-
-    <script>
-        const sampleVideos = [
-            { id: "O1pM06Z4W-o", title: "Beautiful Surah Rehman Tilawat - Heart Soothing", channel: "Quran Global", views: "1.2M views • 2 days ago", duration: "10:45", img: "https://images.unsplash.com/photo-1609599006353-e629aaab315a?auto=format&fit=crop&q=80&w=600" },
-            { id: "V1yZ05w4eCQ", title: "History of Islam - Complete Detailed Documentary", channel: "Waqar Malik", views: "68K views • 3 hours ago", duration: "22:58", img: "https://images.unsplash.com/photo-1564767609342-620cb19b2357?auto=format&fit=crop&q=80&w=600" },
-            { id: "7X8II6J-y9A", title: "Emotional Bayan - Real Purpose of Life", channel: "Islamic Info", views: "450K views • 1 week ago", duration: "18:12", img: "https://images.unsplash.com/photo-1542810634-71277d95dcbb?auto=format&fit=crop&q=80&w=600" }
-        ];
-
-        const feed = document.getElementById('infiniteFeed');
-
-        function appendVideos() {
-            sampleVideos.forEach(v => {
-                const card = document.createElement('div');
-                card.className = "bg-[#141414] border-b border-[#222] pb-3 cursor-pointer";
-                card.onclick = () => openPlayer(v.id, v.title, v.channel, v.views);
-                card.innerHTML = `
-                    <div class="relative aspect-video bg-black">
-                        <img src="${v.img}" class="w-full h-full object-cover">
-                        <span class="absolute bottom-2 right-2 bg-black/80 text-[11px] px-1.5 py-0.5 rounded font-medium">${v.duration}</span>
-                    </div>
-                    <div class="p-3 flex gap-3">
-                        <div class="w-9 h-9 rounded-full bg-[#86efac] text-black font-bold flex items-center justify-center text-sm flex-shrink-0">${v.channel[0]}</div>
-                        <div class="flex-1">
-                            <h3 class="font-semibold text-sm line-clamp-2 leading-snug">${v.title}</h3>
-                            <p class="text-xs text-gray-400 mt-1">${v.channel} • ${v.views}</p>
-                        </div>
-                        <i class="fa-solid fa-ellipsis-vertical text-gray-400 p-1"></i>
-                    </div>
-                `;
-                feed.appendChild(card);
-            });
-        }
-
-        // Initial Feed Load
-        appendVideos();
-
-        // Infinite Scroll
-        window.addEventListener('scroll', () => {
-            if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 400) {
-                appendVideos();
-            }
-        });
-
-        // Navigation
-        function switchTab(tabName) {
-            ['home', 'shorts', 'subs', 'you'].forEach(t => {
-                document.getElementById('view-' + t).classList.add('hidden');
-                document.getElementById('nav-' + t).classList.remove('text-[#86efac]');
-                document.getElementById('nav-' + t).classList.add('text-gray-400');
-            });
-
-            document.getElementById('view-' + tabName).classList.remove('hidden');
-            document.getElementById('nav-' + tabName).classList.remove('text-gray-400');
-            document.getElementById('nav-' + tabName).classList.add('text-[#86efac]');
-            window.scrollTo(0,0);
-        }
-
-        // Video Player
-        function openPlayer(videoId, title, channel, views) {
-            document.getElementById('playerModal').classList.remove('hidden');
-            document.getElementById('modalTitle').innerText = title;
-            document.getElementById('modalHeaderTitle').innerText = title;
-            document.getElementById('modalChannel').innerText = channel;
-            document.getElementById('modalAvatar').innerText = channel[0];
-            document.getElementById('modalViews').innerText = views;
-            document.getElementById('ytIframe').src = "https://www.youtube.com/embed/" + videoId + "?autoplay=1";
-            document.body.style.overflow = "hidden";
-        }
-
-        function closePlayer() {
-            document.getElementById('playerModal').classList.add('hidden');
-            document.getElementById('ytIframe').src = "";
-            document.body.style.overflow = "auto";
-        }
-
-        // UI Extras
-        function toggleSearch() {
-            document.getElementById('searchBar').classList.toggle('hidden');
-        }
-
-        function toggleNotification() {
-            const toast = document.getElementById('toast');
-            toast.classList.remove('hidden');
-            setTimeout(() => toast.classList.add('hidden'), 2000);
-        }
-
-        function toggleSub(btn) {
-            if(btn.innerText === 'Subscribe') {
-                btn.innerText = 'Subscribed';
-                btn.className = 'bg-[#272727] text-white font-normal px-4 py-1.5 rounded-full text-xs';
-            } else {
-                btn.innerText = 'Subscribe';
-                btn.className = 'bg-[#86efac] text-black font-bold px-4 py-1.5 rounded-full text-xs';
-            }
-        }
-    </script>
-  <!-- Upload Modal -->
-  <div id="uploadModal" class="hidden fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4">
-    <div class="bg-[#1f1f1f] border border-[#272727] rounded-xl p-5 w-full max-w-md">
-      <div class="flex justify-between items-center mb-4">
-        <h3 class="text-lg font-bold text-white">Upload Content</h3>
-        <i class="fa-solid fa-xmark text-gray-400 cursor-pointer text-xl" onclick="toggleUploadModal()"></i>
+  <header class="sticky top-0 z-40 bg-[#0f0f0f]/95 backdrop-blur flex items-center justify-between px-4 py-3 border-b border-[#272727]">
+    <div class="flex items-center gap-2 cursor-pointer" onclick="openPage('homePage')">
+      <div class="w-8 h-8 bg-[#86efac] rounded-lg flex items-center justify-center">
+        <i class="fa-solid fa-play text-black text-sm"></i>
       </div>
-      <form id="uploadForm" class="flex flex-col gap-3">
-        <select id="uploadType" class="bg-[#0f0f0f] text-white p-2.5 rounded-lg border border-[#333] outline-none">
-          <option value="video">Long Video</option>
-          <option value="short">Short</option>
-          <option value="post">Post (Text/Image)</option>
-        </select>
-        <input type="text" id="uploadTitle" placeholder="Title/Caption" class="bg-[#0f0f0f] text-white p-2.5 rounded-lg border border-[#333] outline-none" required>
-        <input type="file" id="uploadFile" accept="video/*,image/*" class="text-xs text-gray-400 file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-[#86efac] file:text-black font-semibold cursor-pointer" required>
-        <button type="submit" class="bg-[#86efac] text-black font-bold py-2.5 rounded-lg mt-2 hover:opacity-90">Upload Now</button>
-      </form>
+      <span class="font-bold text-lg tracking-tight text-[#86efac]">IslamTube</span>
+    </div>
+    <div class="flex items-center gap-4 text-lg">
+      <i class="fa-solid fa-compass cursor-pointer text-gray-300 hover:text-[#86efac]" onclick="openPage('explorePage')" title="Explore Menu"></i>
+      <i class="fa-solid fa-bell cursor-pointer text-gray-300 hover:text-[#86efac]" onclick="openPage('notificationsPage')"></i>
+      <i class="fa-solid fa-magnifying-glass cursor-pointer text-gray-300 hover:text-[#86efac]" onclick="openPage('searchPage')"></i>
+    </div>
+  </header>
+
+  <div class="sticky top-[57px] z-30 bg-[#0f0f0f] px-3 py-2 flex gap-2 overflow-x-auto no-scrollbar border-b border-[#272727]">
+    <button onclick="filterCategory('All')" class="cat-btn bg-[#86efac] text-black font-semibold px-3 py-1 rounded-lg text-xs whitespace-nowrap">All</button>
+    <button onclick="filterCategory('Quran Tilawat')" class="cat-btn bg-[#272727] text-white px-3 py-1 rounded-lg text-xs whitespace-nowrap hover:bg-[#333]">Quran Tilawat</button>
+    <button onclick="filterCategory('Quran Tafseer')" class="cat-btn bg-[#272727] text-white px-3 py-1 rounded-lg text-xs whitespace-nowrap hover:bg-[#333]">Quran Tafseer</button>
+    <button onclick="filterCategory('Naat & Nasheed')" class="cat-btn bg-[#272727] text-white px-3 py-1 rounded-lg text-xs whitespace-nowrap hover:bg-[#333]">Naat & Nasheed</button>
+    <button onclick="filterCategory('Bayanat')" class="cat-btn bg-[#272727] text-white px-3 py-1 rounded-lg text-xs whitespace-nowrap hover:bg-[#333]">Islamic Bayanat</button>
+    <button onclick="filterCategory('Islamic History')" class="cat-btn bg-[#272727] text-white px-3 py-1 rounded-lg text-xs whitespace-nowrap hover:bg-[#333]">Islamic History</button>
+    <button onclick="filterCategory('Islamic Cartoons')" class="cat-btn bg-[#272727] text-white px-3 py-1 rounded-lg text-xs whitespace-nowrap hover:bg-[#333]">Islamic Cartoons</button>
+    <button onclick="filterCategory('All Cartoons')" class="cat-btn bg-amber-500/20 text-amber-400 border border-amber-500/40 px-3 py-1 rounded-lg text-xs font-semibold whitespace-nowrap hover:bg-amber-500/30">🎬 All Cartoons</button>
+    <button onclick="filterCategory('Dua & Azkar')" class="cat-btn bg-[#272727] text-white px-3 py-1 rounded-lg text-xs whitespace-nowrap hover:bg-[#333]">Dua & Azkar</button>
+    <button onclick="filterCategory('Hadees & Sunnah')" class="cat-btn bg-[#272727] text-white px-3 py-1 rounded-lg text-xs whitespace-nowrap hover:bg-[#333]">Hadees & Sunnah</button>
+    <button onclick="filterCategory('Live Makkah/Madina')" class="cat-btn bg-[#272727] text-white px-3 py-1 rounded-lg text-xs whitespace-nowrap hover:bg-[#333]">Live Makkah/Madina</button>
+    <button onclick="filterCategory('Masail & Fatwa')" class="cat-btn bg-[#272727] text-white px-3 py-1 rounded-lg text-xs whitespace-nowrap hover:bg-[#333]">Masail & Fatwa</button>
+  </div>
+
+  <div id="pagesContainer" class="flex-1 pb-16 overflow-x-hidden">
+
+    <div id="homePage" class="app-page space-y-4 p-3 max-w-2xl mx-auto">
+      <div id="homeFeed" class="space-y-4">
+        
+        <div class="bg-[#1f1f1f] border border-[#272727] rounded-xl overflow-hidden cursor-pointer" onclick="openVideoPlayer('Surah Rehman - Heart Soothing Recitation', 'Quran Global', '1.2M', 'https://picsum.photos/600/340?random=1')">
+          <div class="relative aspect-video bg-gray-800">
+            <img src="https://picsum.photos/600/340?random=1" class="w-full h-full object-cover">
+            <span class="absolute bottom-2 right-2 bg-black/80 text-[10px] px-1.5 py-0.5 rounded">10:45</span>
+          </div>
+          <div class="p-3 flex gap-3">
+            <img src="https://picsum.photos/50/50?random=10" class="w-9 h-9 rounded-full cursor-pointer" onclick="event.stopPropagation(); openPage('channelPage')">
+            <div class="flex-1">
+              <h3 class="font-semibold text-sm line-clamp-2">Surah Rehman - Heart Soothing Recitation</h3>
+              <p class="text-xs text-gray-400 mt-1">Quran Global • 1.2M views • 2 days ago</p>
+            </div>
+            <i class="fa-solid fa-ellipsis-vertical text-gray-400"></i>
+          </div>
+        </div>
+
+        <div class="py-2 border-y border-[#272727]">
+          <div class="flex justify-between items-center mb-2 px-1">
+            <h3 class="font-bold text-sm flex items-center gap-1.5"><i class="fa-solid fa-bolt text-[#86efac]"></i> Shorts Feed</h3>
+            <span class="text-[11px] text-[#86efac] cursor-pointer" onclick="openPage('shortsPage')">View All</span>
+          </div>
+          <div class="flex gap-3 overflow-x-auto no-scrollbar">
+            <div class="min-w-[130px] h-[210px] bg-gray-800 rounded-xl relative overflow-hidden cursor-pointer flex-shrink-0" onclick="openPage('shortsPage')">
+              <img src="https://picsum.photos/200/320?random=2" class="w-full h-full object-cover">
+              <p class="absolute bottom-2 left-2 right-2 text-xs font-semibold line-clamp-2 drop-shadow">Prophet Stories #shorts</p>
+            </div>
+            <div class="min-w-[130px] h-[210px] bg-gray-800 rounded-xl relative overflow-hidden cursor-pointer flex-shrink-0" onclick="openPage('shortsPage')">
+              <img src="https://picsum.photos/200/320?random=3" class="w-full h-full object-cover">
+              <p class="absolute bottom-2 left-2 right-2 text-xs font-semibold line-clamp-2 drop-shadow">Daily Dua Reminder #islam</p>
+            </div>
+            <div class="min-w-[130px] h-[210px] bg-gray-800 rounded-xl relative overflow-hidden cursor-pointer flex-shrink-0" onclick="openPage('shortsPage')">
+              <img src="https://picsum.photos/200/320?random=4" class="w-full h-full object-cover">
+              <p class="absolute bottom-2 left-2 right-2 text-xs font-semibold line-clamp-2 drop-shadow">Seerat Un Nabi #history</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-[#1f1f1f] border border-[#272727] rounded-xl p-4 space-y-3">
+          <div class="flex items-center gap-2 cursor-pointer" onclick="openPage('channelPage')">
+            <img src="https://picsum.photos/50/50?random=11" class="w-8 h-8 rounded-full">
+            <div>
+              <h4 class="text-xs font-semibold">Islamic Daily Quotes</h4>
+              <p class="text-[10px] text-gray-400">2 hours ago</p>
+            </div>
+          </div>
+          <p class="text-sm">"Always remember to recite Ayat-ul-Kursi before going to sleep."</p>
+          <div class="flex gap-6 text-gray-400 text-xs border-t border-[#272727] pt-2">
+            <button class="hover:text-[#86efac] flex items-center gap-1.5"><i class="fa-solid fa-thumbs-up"></i> 1.5K</button>
+            <button class="hover:text-white flex items-center gap-1.5" onclick="toggleComments()"><i class="fa-solid fa-comment"></i> 48 Comments</button>
+            <button class="hover:text-white flex items-center gap-1.5 ml-auto"><i class="fa-solid fa-share"></i> Share</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div id="explorePage" class="app-page hidden p-4 max-w-2xl mx-auto space-y-4">
+      <h2 class="text-base font-bold flex items-center gap-2 border-b border-[#272727] pb-2"><i class="fa-solid fa-compass text-[#86efac]"></i> Explore Topics</h2>
+      <div class="grid grid-cols-2 gap-3 text-xs font-semibold">
+        <div onclick="filterCategory('Quran Tilawat')" class="bg-[#1f1f1f] p-4 rounded-xl border border-[#272727] flex items-center gap-3 cursor-pointer hover:border-[#86efac]">
+          <i class="fa-solid fa-book-quran text-xl text-[#86efac]"></i> Quran Tilawat
+        </div>
+        <div onclick="filterCategory('Islamic Cartoons')" class="bg-[#1f1f1f] p-4 rounded-xl border border-[#272727] flex items-center gap-3 cursor-pointer hover:border-[#86efac]">
+          <i class="fa-solid fa-child text-xl text-blue-400"></i> Islamic Cartoons
+        </div>
+        <div onclick="filterCategory('All Cartoons')" class="bg-[#1f1f1f] p-4 rounded-xl border border-amber-500/40 flex items-center gap-3 cursor-pointer hover:border-amber-400">
+          <i class="fa-solid fa-film text-xl text-amber-400"></i> All Cartoons
+        </div>
+        <div onclick="filterCategory('Live Makkah/Madina')" class="bg-[#1f1f1f] p-4 rounded-xl border border-[#272727] flex items-center gap-3 cursor-pointer hover:border-[#86efac]">
+          <i class="fa-solid fa-kaaba text-xl text-emerald-400"></i> Makkah Live
+        </div>
+        <div onclick="filterCategory('Naat & Nasheed')" class="bg-[#1f1f1f] p-4 rounded-xl border border-[#272727] flex items-center gap-3 cursor-pointer hover:border-[#86efac]">
+          <i class="fa-solid fa-microphone text-xl text-purple-400"></i> Naat & Nasheeds
+        </div>
+        <div onclick="filterCategory('Bayanat')" class="bg-[#1f1f1f] p-4 rounded-xl border border-[#272727] flex items-center gap-3 cursor-pointer hover:border-[#86efac]">
+          <i class="fa-solid fa-user-tie text-xl text-yellow-400"></i> Scholars Bayan
+        </div>
+      </div>
+    </div>
+
+    <div id="shortsPage" class="app-page hidden snap-y-mandatory overflow-y-scroll no-scrollbar h-[calc(100vh-112px)]">
+      <div class="snap-start w-full h-full relative bg-gray-900 flex items-center justify-center" id="shortContainer" onpointerdown="startSpeed2x()" onpointerup="stopSpeed2x()" ondblclick="triggerHeartLike(event)">
+        <img src="https://picsum.photos/400/700?random=20" class="w-full h-full object-cover">
+        
+        <div id="speedBadge" class="hidden absolute top-4 bg-black/70 text-[#86efac] px-3 py-1 rounded-full text-xs font-bold z-20">⚡ 2x Speed Active</div>
+        <div id="heartAnim" class="hidden absolute text-red-500 text-6xl animate-ping z-20 pointer-events-none"><i class="fa-solid fa-heart"></i></div>
+        
+        <div class="absolute bottom-4 left-4 right-16 z-10 space-y-2">
+          <div class="flex items-center gap-2 cursor-pointer" onclick="openPage('channelPage')">
+            <img src="https://picsum.photos/50/50?random=12" class="w-8 h-8 rounded-full border border-[#86efac]">
+            <h4 class="font-bold text-sm">@IslamicCartoons</h4>
+            <button class="bg-[#86efac] text-black text-[10px] px-2 py-0.5 rounded-full font-bold ml-1">Subscribe</button>
+          </div>
+          <p class="text-xs line-clamp-2">Prophet Ibrahim (AS) Story - Full Episode #shorts #islam</p>
+        </div>
+        
+        <div class="absolute right-3 bottom-12 z-10 flex flex-col gap-5 items-center text-white">
+          <button class="flex flex-col items-center" onclick="event.stopPropagation(); alert('Short Liked!')"><i class="fa-solid fa-heart text-2xl text-red-500"></i><span class="text-[10px] mt-1">45K</span></button>
+          <button class="flex flex-col items-center" onclick="event.stopPropagation(); toggleComments()"><i class="fa-solid fa-comment text-2xl"></i><span class="text-[10px] mt-1">890</span></button>
+          <button class="flex flex-col items-center" onclick="event.stopPropagation(); alert('Link Copied!')"><i class="fa-solid fa-share text-2xl"></i><span class="text-[10px] mt-1">Share</span></button>
+        </div>
+      </div>
+    </div>
+
+    <div id="searchPage" class="app-page hidden p-4 max-w-2xl mx-auto space-y-4">
+      <div class="flex gap-2 items-center">
+        <div class="flex-1 bg-[#1f1f1f] border border-[#333] rounded-full flex items-center px-3 py-2 gap-2">
+          <i class="fa-solid fa-magnifying-glass text-gray-400 text-sm"></i>
+          <input type="text" id="searchInput" placeholder="Search Videos, Shorts, Channels..." class="bg-transparent w-full outline-none text-sm">
+        </div>
+        <button id="micBtn" onclick="startVoiceSearch()" class="w-10 h-10 bg-[#1f1f1f] border border-[#333] rounded-full flex items-center justify-center text-[#86efac] hover:bg-[#333]">
+          <i class="fa-solid fa-microphone"></i>
+        </button>
+      </div>
+      <div class="space-y-2 text-xs">
+        <p class="text-gray-400 font-semibold mb-2">Recent Searches</p>
+        <div class="flex justify-between items-center py-2 border-b border-[#272727] cursor-pointer" onclick="document.getElementById('searchInput').value='Surah Yaseen'">
+          <span><i class="fa-solid fa-clock-rotate-left mr-2 text-gray-500"></i> Surah Yaseen Tilawat</span>
+          <i class="fa-solid fa-arrow-up-left text-gray-500"></i>
+        </div>
+        <div class="flex justify-between items-center py-2 border-b border-[#272727] cursor-pointer" onclick="document.getElementById('searchInput').value='Islamic Cartoons'">
+          <span><i class="fa-solid fa-clock-rotate-left mr-2 text-gray-500"></i> Prophet Stories Cartoons</span>
+          <i class="fa-solid fa-arrow-up-left text-gray-500"></i>
+        </div>
+      </div>
+    </div>
+
+    <div id="notificationsPage" class="app-page hidden p-4 max-w-2xl mx-auto space-y-3">
+      <h2 class="text-base font-bold border-b border-[#272727] pb-2">Notifications</h2>
+      <div class="bg-[#1f1f1f] p-3 rounded-xl border border-[#272727] flex gap-3 items-center">
+        <div class="w-8 h-8 bg-[#86efac]/20 text-[#86efac] rounded-full flex items-center justify-center"><i class="fa-solid fa-bell"></i></div>
+        <div class="text-xs">
+          <p class="font-semibold">Quran Global uploaded a new video</p>
+          <p class="text-gray-400 text-[10px]">1 hour ago</p>
+        </div>
+      </div>
+    </div>
+
+    <div id="channelPage" class="app-page hidden p-4 max-w-2xl mx-auto space-y-4">
+      <div class="flex flex-col items-center text-center border-b border-[#272727] pb-4">
+        <img src="https://picsum.photos/100/100?random=1" class="w-20 h-20 rounded-full mb-2 border-2 border-[#86efac]">
+        <h2 class="font-bold text-lg">My Islamic Channel</h2>
+        <p class="text-xs text-gray-400">@mychannel • 0 Subscribers</p>
+        <button class="bg-[#272727] border border-[#333] text-xs font-semibold px-4 py-1.5 rounded-full mt-3">Edit Profile</button>
+      </div>
+      <div>
+        <h3 class="font-bold text-sm mb-3">Your Uploads</h3>
+        <p class="text-xs text-gray-500">No videos uploaded yet.</p>
+      </div>
+    </div>
+
+    <div id="playerPage" class="app-page hidden p-3 max-w-2xl mx-auto space-y-3">
+      <div class="aspect-video bg-black rounded-xl overflow-hidden relative">
+        <img id="playerThumb" src="" class="w-full h-full object-cover">
+        <div class="absolute inset-0 flex items-center justify-center bg-black/40">
+          <i class="fa-solid fa-circle-play text-5xl text-[#86efac] cursor-pointer" onclick="alert('Video Playing...')"></i>
+        </div>
+      </div>
+      <h2 id="playerTitle" class="font-bold text-base"></h2>
+      <p id="playerMeta" class="text-xs text-gray-400 border-b border-[#272727] pb-3"></p>
+      <div class="flex justify-between text-xs text-gray-300 py-1 border-b border-[#272727]">
+        <button class="flex items-center gap-1.5" onclick="alert('Liked!')"><i class="fa-solid fa-thumbs-up"></i> Like</button>
+        <button class="flex items-center gap-1.5" onclick="toggleComments()"><i class="fa-solid fa-comment"></i> Comment</button>
+        <button class="flex items-center gap-1.5" onclick="alert('Shared!')"><i class="fa-solid fa-share"></i> Share</button>
+      </div>
+    </div>
+
+    <div id="settingsPage" class="app-page hidden p-4 max-w-2xl mx-auto space-y-4">
+      <h2 class="text-base font-bold border-b border-[#272727] pb-2">App Settings</h2>
+      <div class="bg-[#1f1f1f] border border-[#272727] rounded-xl p-4 space-y-4 text-xs">
+        <div class="flex justify-between items-center">
+          <div>
+            <p class="font-semibold">Country / Region</p>
+            <p class="text-[10px] text-gray-400">Tailors feed content based on region</p>
+          </div>
+          <select class="bg-[#0f0f0f] border border-[#333] p-1.5 rounded text-white outline-none">
+            <option>Pakistan (Urdu)</option>
+            <option>Arab World (Arabic)</option>
+            <option>Europe (English)</option>
+          </select>
+        </div>
+        <div class="flex justify-between items-center border-t border-[#272727] pt-3">
+          <div>
+            <p class="font-semibold">Auto-Play Next Video</p>
+            <p class="text-[10px] text-gray-400">Play upcoming content automatically</p>
+          </div>
+          <input type="checkbox" checked class="accent-[#86efac]">
+        </div>
+        <div class="flex justify-between items-center border-t border-[#272727] pt-3">
+          <div>
+            <p class="font-semibold">Default Playback Speed</p>
+          </div>
+          <select class="bg-[#0f0f0f] border border-[#333] p-1.5 rounded text-white outline-none">
+            <option>1.0x Normal</option>
+            <option>1.25x</option>
+            <option>1.5x</option>
+            <option>2.0x Fast</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div id="commentsSheet" class="hidden fixed inset-x-0 bottom-0 bg-[#1f1f1f] border-t border-[#272727] rounded-t-2xl p-4 z-50 max-h-[60vh] flex flex-col shadow-2xl">
+    <div class="flex justify-between items-center border-b border-[#333] pb-2 mb-3">
+      <h3 class="font-bold text-sm">Comments (48)</h3>
+      <i class="fa-solid fa-xmark text-lg cursor-pointer text-gray-400 hover:text-white" onclick="toggleComments()"></i>
+    </div>
+    <div class="flex-1 overflow-y-auto space-y-3 text-xs mb-3">
+      <div class="flex gap-2">
+        <img src="https://picsum.photos/50/50?random=30" class="w-7 h-7 rounded-full">
+        <div>
+          <p class="font-semibold text-gray-300">User_123 <span class="text-[10px] text-gray-500 font-normal">1h ago</span></p>
+          <p class="mt-0.5">MashaAllah very soothing recitation!</p>
+        </div>
+      </div>
+    </div>
+    <div class="flex gap-2 border-t border-[#333] pt-2">
+      <input type="text" placeholder="Add a comment..." class="flex-1 bg-[#0f0f0f] border border-[#333] rounded-full px-3 py-1.5 text-xs outline-none">
+      <button onclick="alert('Comment added!')" class="bg-[#86efac] text-black text-xs font-bold px-4 py-1.5 rounded-full">Post</button>
     </div>
   </div>
 
-  <!-- Country Settings Modal -->
-  <div id="settingsModal" class="hidden fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4">
-    <div class="bg-[#1f1f1f] border border-[#272727] rounded-xl p-5 w-full max-w-md">
-      <div class="flex justify-between items-center mb-4">
-        <h3 class="text-lg font-bold text-white">Select Region / Country</h3>
-        <i class="fa-solid fa-xmark text-gray-400 cursor-pointer text-xl" onclick="toggleSettingsModal()"></i>
+  <div id="uploadModal" class="hidden fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4">
+    <div class="bg-[#1f1f1f] border border-[#272727] rounded-xl p-5 w-full max-w-md space-y-4">
+      <div class="flex justify-between items-center border-b border-[#272727] pb-2">
+        <h3 class="text-base font-bold">Upload to IslamTube</h3>
+        <i class="fa-solid fa-xmark text-gray-400 cursor-pointer text-xl" onclick="toggleUploadModal()"></i>
       </div>
-      <div class="flex flex-col gap-2">
-        <button onclick="setCountry('PK')" class="text-left bg-[#0f0f0f] hover:bg-[#272727] text-white p-3 rounded-lg flex items-center justify-between border border-[#333]">
-          <span>🇵🇰 Pakistan (Urdu)</span>
-          <i class="fa-solid fa-check text-[#86efac] hidden" id="check-PK"></i>
-        </button>
-        <button onclick="setCountry('AR')" class="text-left bg-[#0f0f0f] hover:bg-[#272727] text-white p-3 rounded-lg flex items-center justify-between border border-[#333]">
-          <span>🇸🇦 Arab Region (Arabic)</span>
-          <i class="fa-solid fa-check text-[#86efac] hidden" id="check-AR"></i>
-        </button>
-        <button onclick="setCountry('EU')" class="text-left bg-[#0f0f0f] hover:bg-[#272727] text-white p-3 rounded-lg flex items-center justify-between border border-[#333]">
-          <span>🇪🇺 Europe (English)</span>
-          <i class="fa-solid fa-check text-[#86efac] hidden" id="check-EU"></i>
-        </button>
-      </div>
-    </div>
-            </div>
-    </body>
-   </html>
-                   
+      <form onsubmit="handleUpload(event)" class="flex flex-col gap-3 text-xs">
+        <div>
+          <label class="block mb-1 text-gray-400">Select Type</label>
+          <select class="w-full bg-[#0f0f0f] text-white p-2.5 rounded-lg border border-[#333] outline-none">
+            <optio
