@@ -5,17 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>IslamTube</title>
 <script src="https://cdn.tailwindcss.com"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
   body { background: #0f0f0f; font-family: 'Roboto', sans-serif; }
- .no-scrollbar::-webkit-scrollbar { display: none; }
- .active-btn { background: #22c55e!important; color: black!important; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.active { background: #22c55e!important; color: #000!important; }
+.nav-active { color: #22c55e!important; }
 </style>
 </head>
 <body class="text-white pb-20">
 
 <!-- Top Header -->
-<header class="sticky top-0 z-50 bg-[#0f0f0f]/95 backdrop-blur flex items-center justify-between px-4 py-2">
+<header class="sticky top-0 z-50 bg-[#0f0f0f] flex items-center justify-between px-4 py-3">
   <div class="flex items-center gap-2">
     <i class="fa-brands fa-youtube text-red-600 text-2xl"></i>
     <span class="font-bold text-xl">Islam<span class="text-green-500">tube</span></span>
@@ -27,19 +28,19 @@
 </header>
 
 <!-- Category Buttons -->
-<div class="sticky top-[52px] z-40 bg-[#0f0f0f] px-3 py-2 flex gap-2 overflow-x-auto no-scrollbar border-b border-[#272727]">
-  <button class="bg-[#272727] px-3 py-1.5 rounded-lg text-sm whitespace-nowrap hover:bg-gray-700"><i class="fa-solid fa-compass text-green-500"></i></button>
-  <button class="active-btn px-3 py-1.5 rounded-lg text-sm font-semibold whitespace-nowrap">All</button>
-  <button class="bg-[#272727] px-3 py-1.5 rounded-lg text-sm font-semibold whitespace-nowrap hover:bg-gray-700">Quran</button>
-  <button class="bg-[#272727] px-3 py-1.5 rounded-lg text-sm font-semibold whitespace-nowrap hover:bg-gray-700">Hadees</button>
-  <button class="bg-[#272727] px-3 py-1.5 rounded-lg text-sm font-semibold whitespace-nowrap hover:bg-gray-700">Bayaan</button>
-  <button class="bg-[#272727] px-3 py-1.5 rounded-lg text-sm font-semibold whitespace-nowrap hover:bg-gray-700">Nasheed</button>
+<div class="sticky top-[56px] z-40 bg-[#0f0f0f] px-3 py-2 flex gap-2 overflow-x-auto no-scrollbar">
+  <button onclick="setActive(this)" class="bg-[#272727] px-3 py-1.5 rounded-lg text-sm whitespace-nowrap"><i class="fa-solid fa-compass text-green-500"></i></button>
+  <button onclick="setActive(this)" class="active bg-[#272727] px-3 py-1.5 rounded-lg text-sm font-semibold whitespace-nowrap">All</button>
+  <button onclick="setActive(this)" class="bg-[#272727] px-3 py-1.5 rounded-lg text-sm font-semibold whitespace-nowrap">Quran</button>
+  <button onclick="setActive(this)" class="bg-[#272727] px-3 py-1.5 rounded-lg text-sm font-semibold whitespace-nowrap">Hadees</button>
+  <button onclick="setActive(this)" class="bg-[#272727] px-3 py-1.5 rounded-lg text-sm font-semibold whitespace-nowrap">Bayaan</button>
+  <button onclick="setActive(this)" class="bg-[#272727] px-3 py-1.5 rounded-lg text-sm font-semibold whitespace-nowrap">Nasheed</button>
 </div>
 
 <!-- Banner -->
-<div class="relative">
+<div class="relative mt-1">
   <img src="https://images.unsplash.com/photo-1589652717521-10c0d092dea9?q=80&w=1200" class="w-full h-48 object-cover">
-  <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent"></div>
+  <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
   <div class="absolute bottom-3 left-3 right-3 text-center">
     <h2 class="text-lg font-bold" dir="rtl">اللہ کا ذکر دل کے سکون کی کنجی ہے</h2>
     <p class="bg-green-700 text-xs px-2 py-1 rounded mt-1" dir="rtl">اللہ کو یاد کرنے سے دل کو سکون ملتا ہے</p>
@@ -51,4 +52,75 @@
 <div class="p-3 flex gap-3 border-b border-[#272727]">
   <div class="relative">
     <img src="https://i.pravatar.cc/50?u=allah" class="w-10 h-10 rounded-full border-2 border-red-500">
-    <span
+    <span class="absolute -bottom-1 -right-1 bg-red-600 text-[9px] px-1 rounded font-bold">LIVE</span>
+  </div>
+  <div class="flex-1">
+    <p class="font-semibold text-sm leading-tight">Quran Aur Hadees Ki Roshni Mein Zindagi | By Dr Israr Ahmed</p>
+    <p class="text-gray-400 text-xs mt-1">Islamic Teacher · 2.1K watching</p>
+  </div>
+  <i class="fa-solid fa-ellipsis-vertical mt-1"></i>
+</div>
+
+<!-- Shorts Section -->
+<div class="p-3">
+  <div class="flex items-center justify-between mb-3">
+    <div class="flex items-center gap-2">
+      <i class="fa-solid fa-clapperboard text-green-500 text-xl"></i>
+      <h2 class="font-bold text-lg">Shorts</h2>
+    </div>
+    <i class="fa-solid fa-ellipsis-vertical"></i>
+  </div>
+  <div class="flex gap-2 overflow-x-auto no-scrollbar">
+    <!-- Short 1 -->
+    <div class="relative min-w-[160px] h-72 rounded-xl overflow-hidden bg-gray-800">
+      <img src="https://images.unsplash.com/photo-1564594736625-976aad7c881b?q=80&w=400" class="w-full h-full object-cover">
+      <p class="absolute top-2 left-2 font-semibold text-sm">Jumma Mubarak ❤️🕋💚</p>
+      <p class="absolute bottom-2 left-2 text-sm" dir="rtl">جمعة مباركة</p>
+    </div>
+    <!-- Short 2 -->
+    <div class="relative min-w-[160px] h-72 rounded-xl overflow-hidden bg-gray-800">
+      <span class="absolute top-2 left-2 bg-green-500 text-black text-xs px-2 py-0.5 rounded font-bold">New</span>
+      <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=400" class="w-full h-full object-cover">
+      <p class="absolute top-2 right-2 text-sm">SubhanAllah ❤️✨</p>
+      <p class="absolute bottom-10 left-0 right-0 text-center text-2xl" dir="rtl">سُبْحَانَ اللَّهِ</p>
+      <p class="absolute bottom-2 left-0 right-0 text-center text-xs">SUBHANALLAH</p>
+    </div>
+  </div>
+</div>
+
+<!-- Bottom Nav - YE 4 BUTTON -->
+<nav class="fixed bottom-0 left-0 right-0 bg-[#0f0f0f] border-t border-[#272727] flex justify-around py-2">
+  <div onclick="setNav(this)" class="nav-active flex-col items-center cursor-pointer">
+    <i class="fa-solid fa-house text-xl"></i>
+    <span class="text-xs">Home</span>
+  </div>
+  <div onclick="setNav(this)" class="flex flex-col items-center text-gray-400 cursor-pointer">
+    <i class="fa-solid fa-clapperboard text-xl"></i>
+    <span class="text-xs">Shorts</span>
+  </div>
+  <div class="bg-green-500 text-black rounded-full w-12 h-12 flex items-center justify-center -mt-3 cursor-pointer">
+    <i class="fa-solid fa-plus text-xl"></i>
+  </div>
+  <div onclick="setNav(this)" class="flex flex-col items-center text-gray-400 cursor-pointer">
+    <i class="fa-solid fa-square-caret-right text-xl"></i>
+    <span class="text-xs">Subscriptions</span>
+  </div>
+  <div onclick="setNav(this)" class="flex flex-col items-center text-gray-400 cursor-pointer">
+    <img src="https://i.pravatar.cc/30?u=user" class="w-6 h-6 rounded-full">
+    <span class="text-xs">You</span>
+  </div>
+</nav>
+
+<script>
+  function setActive(btn){
+    document.querySelectorAll('.sticky button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+  function setNav(nav){
+    document.querySelectorAll('nav div').forEach(n => n.classList.remove('nav-active','text-gray-400'));
+    nav.classList.add('nav-active');
+  }
+</script>
+
+</body>
+                                                                               </html>
