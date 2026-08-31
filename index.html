@@ -22,84 +22,192 @@
             <span class="font-bold text-base tracking-tight">Islamtube</span>
         </div>
         <div class="flex items-center gap-5 text-lg">
-            <i class="fa-solid fa-bell cursor-pointer text-gray-300"></i>
-            <i class="fa-solid fa-moon cursor-pointer text-gray-300"></i>
-            <i class="fa-solid fa-search cursor-pointer text-gray-300"></i>
+            <i class="fa-solid fa-bell cursor-pointer text-gray-300" onclick="alert('No new notifications')"></i>
+            <i class="fa-solid fa-search cursor-pointer text-gray-300" onclick="alert('Search feature coming soon!')"></i>
         </div>
     </header>
 
-    <!-- Category Filters Bar -->
-    <div class="sticky top-[45px] z-40 bg-[#0f0f0f] px-3 py-2 flex gap-2 overflow-x-auto no-scrollbar border-b border-[#272727]">
-        <button class="bg-[#272727] p-2 rounded-lg text-sm"><i class="fa-solid fa-compass text-green-400"></i></button>
-        <button class="bg-white text-black px-3 py-1 rounded-lg text-xs font-semibold whitespace-nowrap">All</button>
-        <button class="bg-[#272727] text-white px-3 py-1 rounded-lg text-xs font-semibold whitespace-nowrap">Quran</button>
-        <button class="bg-[#272727] text-white px-3 py-1 rounded-lg text-xs font-semibold whitespace-nowrap">Naat</button>
-        <button class="bg-[#272727] text-white px-3 py-1 rounded-lg text-xs font-semibold whitespace-nowrap">Molvi</button>
-        <button class="bg-[#272727] text-white px-3 py-1 rounded-lg text-xs font-semibold whitespace-nowrap">Cartoon</button>
-        <button class="bg-[#272727] text-white px-3 py-1 rounded-lg text-xs font-semibold whitespace-nowrap">Islamic Stories</button>
+    <!-- VIEWS CONTAINER -->
+    <div id="viewsContainer" class="flex-1 w-full">
+        
+        <!-- ================= HOME VIEW ================= -->
+        <div id="view-home" class="block">
+            <!-- Category Filters Bar -->
+            <div class="sticky top-[45px] z-40 bg-[#0f0f0f] px-3 py-2 flex gap-2 overflow-x-auto no-scrollbar border-b border-[#272727]">
+                <button class="bg-[#272727] p-2 rounded-lg text-sm"><i class="fa-solid fa-compass text-green-400"></i></button>
+                <button class="bg-white text-black px-3 py-1 rounded-lg text-xs font-semibold whitespace-nowrap">All</button>
+                <button class="bg-[#272727] text-white px-3 py-1 rounded-lg text-xs font-semibold whitespace-nowrap">Quran</button>
+                <button class="bg-[#272727] text-white px-3 py-1 rounded-lg text-xs font-semibold whitespace-nowrap">Naat</button>
+                <button class="bg-[#272727] text-white px-3 py-1 rounded-lg text-xs font-semibold whitespace-nowrap">Molvi</button>
+            </div>
+
+            <!-- Main Feed -->
+            <main class="space-y-2 pt-2">
+                <!-- Video 1 -->
+                <div class="bg-[#141414] border-b border-[#222] pb-3 cursor-pointer" onclick="openPlayer('O1pM06Z4W-o', 'Quran Tilawat - Heart Touching')">
+                    <div class="relative aspect-video bg-black">
+                        <img src="https://images.unsplash.com/photo-1609599006353-e629aaab315a?auto=format&fit=crop&q=80&w=600" class="w-full h-full object-cover">
+                        <span class="absolute bottom-2 right-2 bg-black/80 text-[11px] px-1.5 py-0.5 rounded font-medium">10:45</span>
+                    </div>
+                    <div class="p-3 flex gap-3">
+                        <div class="w-9 h-9 rounded-full bg-blue-600 flex items-center justify-center font-bold text-sm">Q</div>
+                        <div class="flex-1">
+                            <h3 class="font-semibold text-sm line-clamp-2">Beautiful Surah Rehman Tilawat - Heart Soothing</h3>
+                            <p class="text-xs text-gray-400 mt-1">Quran Global • 1.2M views • 2 days ago</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Shorts Section on Home -->
+                <div class="py-2">
+                    <div class="flex items-center gap-2 px-3 mb-2">
+                        <i class="fa-solid fa-bolt text-red-500 text-xl"></i>
+                        <h2 class="font-bold text-lg">Shorts</h2>
+                    </div>
+                    <div class="flex gap-2 overflow-x-auto px-3 no-scrollbar pb-2">
+                        <!-- Short Card 1 -->
+                        <div class="min-w-[140px] h-[240px] rounded-xl overflow-hidden relative bg-gray-800" onclick="alert('Shorts player coming soon!')">
+                            <img src="https://images.unsplash.com/photo-1585036156171-384164a8c675?auto=format&fit=crop&q=80&w=300" class="w-full h-full object-cover opacity-80">
+                            <div class="absolute bottom-2 left-2 right-2">
+                                <p class="font-semibold text-xs line-clamp-2">Islamic Status Video</p>
+                                <p class="text-[10px] text-gray-300">2M views</p>
+                            </div>
+                        </div>
+                        <!-- Short Card 2 -->
+                        <div class="min-w-[140px] h-[240px] rounded-xl overflow-hidden relative bg-gray-800" onclick="alert('Shorts player coming soon!')">
+                            <img src="https://images.unsplash.com/photo-1591557304193-4e4b52b31a31?auto=format&fit=crop&q=80&w=300" class="w-full h-full object-cover opacity-80">
+                            <div class="absolute bottom-2 left-2 right-2">
+                                <p class="font-semibold text-xs line-clamp-2">Makkah Beautiful View</p>
+                                <p class="text-[10px] text-gray-300">500K views</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Video 2 -->
+                <div class="bg-[#141414] border-b border-[#222] pb-3 cursor-pointer" onclick="openPlayer('V1yZ05w4eCQ', 'Islamic History')">
+                    <div class="relative aspect-video bg-black">
+                        <img src="https://images.unsplash.com/photo-1564767609342-620cb19b2357?auto=format&fit=crop&q=80&w=600" class="w-full h-full object-cover">
+                        <span class="absolute bottom-2 right-2 bg-black/80 text-[11px] px-1.5 py-0.5 rounded font-medium">45:20</span>
+                    </div>
+                    <div class="p-3 flex gap-3">
+                        <div class="w-9 h-9 rounded-full bg-green-600 flex items-center justify-center font-bold text-sm">W</div>
+                        <div class="flex-1">
+                            <h3 class="font-semibold text-sm line-clamp-2">History of Islam - Complete Documentary</h3>
+                            <p class="text-xs text-gray-400 mt-1">Waqar Malik • 68K views • 3 hours ago</p>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <!-- ================= SHORTS VIEW ================= -->
+        <div id="view-shorts" class="hidden h-full flex items-center justify-center pt-20">
+            <div class="text-center">
+                <i class="fa-solid fa-bolt text-5xl text-red-500 mb-4"></i>
+                <h2 class="text-xl font-bold">Shorts Feed</h2>
+                <p class="text-gray-400 text-sm mt-2">Swipe up functionality will be here!</p>
+            </div>
+        </div>
+
+        <!-- ================= SUBSCRIPTIONS VIEW ================= -->
+        <div id="view-subs" class="hidden h-full flex items-center justify-center pt-20">
+            <div class="text-center">
+                <i class="fa-solid fa-circle-play text-5xl text-gray-400 mb-4"></i>
+                <h2 class="text-xl font-bold">Subscriptions</h2>
+                <p class="text-gray-400 text-sm mt-2">Channels you subscribed to.</p>
+            </div>
+        </div>
+
+        <!-- ================= YOU VIEW ================= -->
+        <div id="view-you" class="hidden h-full p-4 pt-10">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="w-16 h-16 rounded-full bg-blue-500 flex items-center justify-center text-2xl font-bold">U</div>
+                <div>
+                    <h2 class="font-bold text-xl">User Profile</h2>
+                    <p class="text-sm text-gray-400">@islamtube_user</p>
+                </div>
+            </div>
+            <div class="space-y-4">
+                <div class="flex items-center gap-4 p-2 text-lg"><i class="fa-solid fa-history w-6"></i> History</div>
+                <div class="flex items-center gap-4 p-2 text-lg"><i class="fa-solid fa-list w-6"></i> Playlists</div>
+                <div class="flex items-center gap-4 p-2 text-lg"><i class="fa-regular fa-clock w-6"></i> Watch Later</div>
+            </div>
+        </div>
     </div>
 
-    <!-- Main Feed (Infinite Cards) -->
-    <main id="videoFeed" class="flex-1 space-y-4 pt-3">
-        <!-- Dynamic Cards will load here -->
-    </main>
+    <!-- Video Player Modal -->
+    <div id="playerModal" class="fixed inset-0 bg-[#0f0f0f] z-[100] hidden flex flex-col">
+        <div class="bg-black w-full aspect-video relative">
+            <button onclick="closePlayer()" class="absolute top-2 left-2 z-10 bg-black/50 p-2 rounded-full text-white hover:bg-black/80">
+                <i class="fa-solid fa-chevron-down"></i>
+            </button>
+            <iframe id="ytIframe" class="w-full h-full" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+        <div class="p-4">
+            <h2 id="modalTitle" class="font-bold text-lg mb-2">Video Title</h2>
+            <div class="flex gap-4 border-b border-[#272727] pb-4 mb-4">
+                <button class="bg-[#272727] px-4 py-1.5 rounded-full text-sm font-medium"><i class="fa-regular fa-thumbs-up mr-1"></i> Like</button>
+                <button class="bg-[#272727] px-4 py-1.5 rounded-full text-sm font-medium"><i class="fa-solid fa-share mr-1"></i> Share</button>
+            </div>
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-full bg-gray-600"></div>
+                    <span class="font-semibold text-sm">Channel Name</span>
+                </div>
+                <button class="bg-white text-black px-3 py-1 rounded-full text-sm font-bold">Subscribe</button>
+            </div>
+        </div>
+    </div>
 
     <!-- Bottom Navigation -->
     <nav class="fixed bottom-0 left-0 right-0 bg-[#0f0f0f] border-t border-[#272727] flex justify-around py-2.5 text-[10px] z-50">
-        <div class="text-center text-red-500"><i class="fa-solid fa-house text-lg block mb-0.5"></i>Home</div>
-        <div class="text-center text-gray-400"><i class="fa-solid fa-bolt text-lg block mb-0.5"></i>Shorts</div>
-        <div class="text-center text-gray-400"><i class="fa-solid fa-circle-play text-lg block mb-0.5"></i>Subscriptions</div>
-        <div class="text-center text-gray-400"><i class="fa-solid fa-user text-lg block mb-0.5"></i>You</div>
+        <div onclick="switchTab('home')" id="nav-home" class="nav-btn text-center text-white cursor-pointer"><i class="fa-solid fa-house text-lg block mb-0.5"></i>Home</div>
+        <div onclick="switchTab('shorts')" id="nav-shorts" class="nav-btn text-center text-gray-500 cursor-pointer"><i class="fa-solid fa-bolt text-lg block mb-0.5"></i>Shorts</div>
+        <div onclick="switchTab('subs')" id="nav-subs" class="nav-btn text-center text-gray-500 cursor-pointer"><i class="fa-solid fa-circle-play text-lg block mb-0.5"></i>Subscriptions</div>
+        <div onclick="switchTab('you')" id="nav-you" class="nav-btn text-center text-gray-500 cursor-pointer"><i class="fa-solid fa-user text-lg block mb-0.5"></i>You</div>
     </nav>
 
     <script>
-        const sampleTitles = [
-            "Baiton ke baad Jamima Khan ne company pe aiyy hamla kar diya",
-            "Quran Tilawat with Urdu Translation - Heart Touching",
-            "Beautiful Naat Shareef 2026 - Best Voice",
-            "Islamic Historical Documentary - Waqar Malik",
-            "The True Story of Sahaba - Emotional Bayan"
-        ];
-        
-        const channels = ["Waqar Malik", "Madani Channel", "Islamic Info", "Quran Global"];
-        
-        const feed = document.getElementById('videoFeed');
+        // Tab Switching Logic
+        function switchTab(tabName) {
+            // Hide all views
+            document.getElementById('view-home').classList.add('hidden');
+            document.getElementById('view-shorts').classList.add('hidden');
+            document.getElementById('view-subs').classList.add('hidden');
+            document.getElementById('view-you').classList.add('hidden');
+            
+            // Reset all nav icons to gray
+            const navs = document.querySelectorAll('.nav-btn');
+            navs.forEach(nav => {
+                nav.classList.remove('text-white');
+                nav.classList.add('text-gray-500');
+            });
 
-        function loadMoreVideos() {
-            for(let i=0; i<5; i++) {
-                const title = sampleTitles[Math.floor(Math.random() * sampleTitles.length)];
-                const channel = channels[Math.floor(Math.random() * channels.length)];
-                
-                const card = document.createElement('div');
-                card.className = "bg-[#141414] border-b border-[#222] pb-3 cursor-pointer";
-                card.innerHTML = `
-                    <div class="relative aspect-video bg-black">
-                        <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=600" class="w-full h-full object-cover">
-                        <span class="absolute bottom-2 right-2 bg-black/80 text-[11px] px-1.5 py-0.5 rounded font-medium">22:58</span>
-                    </div>
-                    <div class="p-3 flex gap-3">
-                        <div class="w-9 h-9 rounded-full bg-red-600 flex items-center justify-center font-bold text-sm flex-shrink-0">${channel[0]}</div>
-                        <div class="flex-1">
-                            <h3 class="font-semibold text-sm line-clamp-2 leading-snug">${title}</h3>
-                            <p class="text-xs text-gray-400 mt-1">${channel} • 68K views • Streamed 3 hours ago</p>
-                        </div>
-                        <i class="fa-solid fa-ellipsis-vertical text-gray-400 p-1"></i>
-                    </div>
-                `;
-                feed.appendChild(card);
-            }
+            // Show selected view and highlight icon
+            document.getElementById('view-' + tabName).classList.remove('hidden');
+            document.getElementById('nav-' + tabName).classList.remove('text-gray-500');
+            document.getElementById('nav-' + tabName).classList.add('text-white');
+            
+            // Scroll to top
+            window.scrollTo(0,0);
         }
 
-        // Initial Load
-        loadMoreVideos();
+        // Video Player Logic
+        function openPlayer(videoId, title) {
+            document.getElementById('playerModal').classList.remove('hidden');
+            document.getElementById('modalTitle').innerText = title;
+            // Load real YouTube video
+            document.getElementById('ytIframe').src = "https://www.youtube.com/embed/" + videoId + "?autoplay=1";
+            document.body.style.overflow = "hidden"; // Stop background scrolling
+        }
 
-        // Infinite Scroll (Jitna scroll karoge, naye cards aate jayenge)
-        window.addEventListener('scroll', () => {
-            if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 500) {
-                loadMoreVideos();
-            }
-        });
+        function closePlayer() {
+            document.getElementById('playerModal').classList.add('hidden');
+            document.getElementById('ytIframe').src = ""; // Stop audio playing in background
+            document.body.style.overflow = "auto"; // Allow scrolling again
+        }
     </script>
 </body>
-</html>
-  
+                    </html>
+                
