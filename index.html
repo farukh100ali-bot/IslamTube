@@ -1,2228 +1,301 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
-<meta charset="UTF-8">
-
-<meta name="viewport"
-content="width=device-width,
-initial-scale=1,
-maximum-scale=1,
-user-scalable=no">
-
-<title>IslamTube</title>
-
-<style>
-
-/* =========================
-   BASIC
-========================= */
-
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-}
-
-:root{
-
-    --bg:#0f0f0f;
-    --card:#181818;
-    --line:#292929;
-
-    --text:#f5f5f5;
-    --muted:#aaa;
-
-    /* Light green IslamTube */
-    --green:#45a94e;
-}
-
-html,
-body{
-
-    background:var(--bg);
-    color:var(--text);
-
-    font-family:
-    Arial,
-    Helvetica,
-    sans-serif;
-
-    min-height:100%;
-
-    overflow-x:hidden;
-}
-
-button,
-input{
-    font:inherit;
-}
-
-button{
-    cursor:pointer;
-}
-
-
-/* =========================
-   TOP HEADER
-========================= */
-
-.top{
-
-    position:fixed;
-
-    top:0;
-    left:0;
-    right:0;
-
-    height:62px;
-
-    background:#0f0f0f;
-
-    border-bottom:
-    1px solid var(--line);
-
-    z-index:1000;
-
-    display:flex;
-
-    align-items:center;
-
-    padding:0 12px;
-
-    gap:12px;
-}
-
-
-/* HOME ICON */
-
-.topHome{
-
-    width:40px;
-    height:40px;
-
-    border:0;
-
-    background:transparent;
-
-    color:white;
-
-    font-size:25px;
-
-    border-radius:50%;
-}
-
-
-/* LOGO */
-
-.brand{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:9px;
-
-    font-size:23px;
-
-    font-weight:700;
-
-    white-space:nowrap;
-}
-
-
-.logo{
-
-    width:42px;
-    height:30px;
-
-    border-radius:8px;
-
-    background:
-    var(--green);
-
-    display:grid;
-
-    place-items:center;
-}
-
-
-.logo:after{
-
-    content:"";
-
-    border-left:
-    11px solid white;
-
-    border-top:
-    7px solid transparent;
-
-    border-bottom:
-    7px solid transparent;
-
-    margin-left:3px;
-}
-
-
-/* HEADER BUTTONS */
-
-.topActions{
-
-    margin-left:auto;
-
-    display:flex;
-
-    gap:2px;
-}
-
-.ico{
-
-    border:0;
-
-    background:transparent;
-
-    color:white;
-
-    width:42px;
-    height:42px;
-
-    border-radius:50%;
-
-    font-size:23px;
-}
-
-.ico:active{
-
-    background:#2b2b2b;
-}
-
-
-/* =========================
-   SEARCH
-========================= */
-
-.searchPanel{
-
-    position:fixed;
-
-    top:62px;
-
-    left:0;
-    right:0;
-
-    background:#0f0f0f;
-
-    padding:9px 12px;
-
-    border-bottom:
-    1px solid var(--line);
-
-    z-index:999;
-
-    display:none;
-
-    gap:8px;
-}
-
-.searchPanel.open{
-
-    display:flex;
-}
-
-.searchPanel input{
-
-    flex:1;
-
-    background:#242424;
-
-    border:
-    1px solid #444;
-
-    color:white;
-
-    border-radius:24px;
-
-    height:44px;
-
-    padding:0 16px;
-
-    outline:none;
-
-    font-size:16px;
-}
-
-
-/* =========================
-   CATEGORY BAR
-========================= */
-
-.categories{
-
-    position:fixed;
-
-    top:62px;
-
-    left:0;
-    right:0;
-
-    height:58px;
-
-    background:#0f0f0f;
-
-    display:flex;
-
-    gap:9px;
-
-    align-items:center;
-
-    padding:0 10px;
-
-    overflow:auto;
-
-    z-index:900;
-}
-
-.categories::-webkit-scrollbar{
-    display:none;
-}
-
-
-.chip{
-
-    border:0;
-
-    background:#303030;
-
-    color:#eee;
-
-    padding:
-    9px 16px;
-
-    border-radius:9px;
-
-    white-space:nowrap;
-}
-
-.chip.active{
-
-    background:white;
-
-    color:#111;
-}
-
-
-/* =========================
-   MAIN
-========================= */
-
-main{
-
-    padding:
-    120px 0 82px;
-
-    max-width:900px;
-
-    margin:auto;
-}
-
-
-/* =========================
-   VIDEO CARD
-========================= */
-
-.video{
-
-    margin-bottom:18px;
-}
-
-
-.thumb{
-
-    position:relative;
-
-    width:100%;
-
-    aspect-ratio:16/9;
-
-    background:#292929;
-
-    overflow:hidden;
-}
-
-
-.thumb img{
-
-    width:100%;
-
-    height:100%;
-
-    object-fit:cover;
-}
-
-
-.duration{
-
-    position:absolute;
-
-    right:8px;
-
-    bottom:7px;
-
-    background:#000d;
-
-    padding:4px 6px;
-
-    border-radius:4px;
-
-    font-size:12px;
-}
-
-
-.info{
-
-    display:flex;
-
-    gap:11px;
-
-    padding:11px 12px;
-}
-
-
-.avatar{
-
-    flex:
-    0 0 42px;
-
-    width:42px;
-
-    height:42px;
-
-    border-radius:50%;
-
-    background:
-    var(--green);
-
-    display:grid;
-
-    place-items:center;
-
-    font-weight:bold;
-}
-
-
-.details{
-
-    min-width:0;
-
-    flex:1;
-}
-
-
-.title{
-
-    font-weight:600;
-
-    font-size:17px;
-
-    line-height:1.35;
-}
-
-
-.meta{
-
-    color:var(--muted);
-
-    font-size:14px;
-
-    margin-top:6px;
-
-    line-height:1.4;
-}
-
-
-.more{
-
-    color:#bbb;
-
-    font-size:24px;
-
-    width:22px;
-
-    border:0;
-
-    background:none;
-}
-
-
-/* =========================
-   POSTS
-========================= */
-
-.post{
-
-    padding:14px 13px;
-
-    border-top:
-    1px solid var(--line);
-
-    border-bottom:
-    1px solid var(--line);
-
-    margin-bottom:14px;
-}
-
-
-.postHead{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:10px;
-}
-
-
-.postText{
-
-    margin-top:10px;
-
-    line-height:1.5;
-}
-
-
-.postBtns{
-
-    display:flex;
-
-    gap:25px;
-
-    margin-top:13px;
-
-    color:#bbb;
-}
-
-
-/* =========================
-   BOTTOM NAV
-========================= */
-
-.bottom{
-
-    position:fixed;
-
-    bottom:0;
-
-    left:0;
-    right:0;
-
-    height:70px;
-
-    background:#0f0f0f;
-
-    border-top:
-    1px solid #333;
-
-    display:flex;
-
-    z-index:2000;
-}
-
-
-.nav{
-
-    flex:1;
-
-    border:0;
-
-    background:none;
-
-    color:#aaa;
-
-    display:flex;
-
-    flex-direction:column;
-
-    align-items:center;
-
-    justify-content:center;
-
-    gap:3px;
-
-    font-size:11px;
-}
-
-
-.nav .nicon{
-
-    font-size:23px;
-
-    line-height:25px;
-}
-
-
-.nav.active{
-
-    color:white;
-}
-
-
-.nav.active .nicon{
-
-    color:
-    var(--green);
-}
-
-
-/* =========================
-   LOADING
-========================= */
-
-.loading{
-
-    text-align:center;
-
-    color:#888;
-
-    padding:22px;
-}
-
-
-.spinner{
-
-    width:24px;
-
-    height:24px;
-
-    border:
-    3px solid #444;
-
-    border-top-color:
-    var(--green);
-
-    border-radius:50%;
-
-    margin:auto;
-
-    animation:
-    spin 1s linear infinite;
-}
-
-
-@keyframes spin{
-
-    to{
-        transform:rotate(360deg);
-    }
-
-}
-
-
-/* =========================
-   EMPTY
-========================= */
-
-.empty{
-
-    padding:50px 20px;
-
-    text-align:center;
-
-    color:#999;
-}
-
-
-/* =========================
-   ROWS
-========================= */
-
-.row{
-
-    display:flex;
-
-    gap:12px;
-
-    padding:13px;
-
-    border-bottom:
-    1px solid var(--line);
-
-    align-items:center;
-}
-
-
-.row img{
-
-    width:130px;
-
-    height:74px;
-
-    object-fit:cover;
-
-    border-radius:7px;
-}
-
-
-.rowText{
-
-    flex:1;
-}
-
-
-.small{
-
-    font-size:13px;
-
-    color:#999;
-
-    margin-top:5px;
-}
-
-
-/* =========================
-   SETTINGS
-========================= */
-
-.pageTitle{
-
-    font-size:22px;
-
-    font-weight:700;
-
-    padding:15px 13px;
-}
-
-
-.setting{
-
-    display:flex;
-
-    justify-content:
-    space-between;
-
-    align-items:center;
-
-    padding:17px 14px;
-
-    border-bottom:
-    1px solid var(--line);
-}
-
-
-.setting button{
-
-    background:#303030;
-
-    color:white;
-
-    border:0;
-
-    border-radius:8px;
-
-    padding:8px 12px;
-}
-
-
-/* =========================
-   MODAL / VIDEO PAGE
-========================= */
-
-.modal{
-
-    position:fixed;
-
-    inset:0;
-
-    background:#000;
-
-    z-index:4000;
-
-    display:none;
-
-    overflow:auto;
-}
-
-
-.modal.open{
-
-    display:block;
-}
-
-
-.modalTop{
-
-    height:58px;
-
-    display:flex;
-
-    align-items:center;
-
-    padding:0 12px;
-
-    border-bottom:
-    1px solid #222;
-}
-
-
-.back{
-
-    border:0;
-
-    background:none;
-
-    color:white;
-
-    font-size:27px;
-
-    width:45px;
-}
-
-
-.player{
-
-    width:100%;
-
-    aspect-ratio:16/9;
-
-    background:#000;
-}
-
-
-.player video{
-
-    width:100%;
-
-    height:100%;
-
-    object-fit:contain;
-}
-
-
-.videoPage{
-
-    padding-bottom:40px;
-}
-
-
-.videoPage h1{
-
-    font-size:20px;
-
-    line-height:1.35;
-
-    padding:14px;
-}
-
-
-.actions{
-
-    display:flex;
-
-    gap:7px;
-
-    overflow:auto;
-
-    padding:
-    0 12px 12px;
-}
-
-
-.action{
-
-    background:#292929;
-
-    border:0;
-
-    color:#eee;
-
-    border-radius:18px;
-
-    padding:
-    9px 14px;
-
-    white-space:nowrap;
-}
-
-
-.channelLine{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:10px;
-
-    padding:12px;
-
-    border-top:
-    1px solid var(--line);
-
-    border-bottom:
-    1px solid var(--line);
-}
-
-
-.subscribe{
-
-    margin-left:auto;
-
-    background:
-    var(--green);
-
-    color:white;
-
-    border:0;
-
-    border-radius:18px;
-
-    padding:
-    9px 15px;
-}
-
-
-.desc{
-
-    padding:14px;
-
-    line-height:1.5;
-
-    color:#ddd;
-}
-
-
-/* =========================
-   SHORTS
-========================= */
-
-.shorts{
-
-    position:fixed;
-
-    inset:0;
-
-    background:#000;
-
-    z-index:3500;
-
-    display:none;
-
-    overflow-y:auto;
-
-    scroll-snap-type:y mandatory;
-}
-
-
-.shorts.open{
-
-    display:block;
-}
-
-
-.short{
-
-    height:100vh;
-
-    scroll-snap-align:start;
-
-    position:relative;
-
-    background:#000;
-}
-
-
-.short video{
-
-    width:100%;
-
-    height:100%;
-
-    object-fit:cover;
-}
-
-
-.shortShade{
-
-    position:absolute;
-
-    left:14px;
-
-    right:75px;
-
-    bottom:32px;
-
-    text-shadow:
-    0 2px 5px #000;
-}
-
-
-.shortTitle{
-
-    font-weight:700;
-
-    font-size:18px;
-}
-
-
-.shortMeta{
-
-    margin-top:6px;
-
-    color:#ddd;
-}
-
-
-.shortTools{
-
-    position:absolute;
-
-    right:13px;
-
-    bottom:95px;
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:16px;
-
-    align-items:center;
-}
-
-
-.st{
-
-    border:0;
-
-    background:#0008;
-
-    color:#fff;
-
-    border-radius:50%;
-
-    width:45px;
-
-    height:45px;
-
-    font-size:20px;
-}
-
-
-.closeShorts{
-
-    position:fixed;
-
-    right:13px;
-
-    top:13px;
-
-    z-index:3600;
-
-    background:#0008;
-
-    color:#fff;
-
-    border:0;
-
-    border-radius:50%;
-
-    width:42px;
-
-    height:42px;
-
-    font-size:25px;
-}
-
-
-/* =========================
-   TOAST
-========================= */
-
-.toast{
-
-    position:fixed;
-
-    bottom:82px;
-
-    left:50%;
-
-    transform:
-    translateX(-50%);
-
-    background:#333;
-
-    color:white;
-
-    padding:
-    11px 16px;
-
-    border-radius:8px;
-
-    z-index:6000;
-
-    display:none;
-}
-
-
-.toast.show{
-
-    display:block;
-}
-
-
-/* =========================
-   DESKTOP
-========================= */
-
-@media(min-width:700px){
-
-    .thumb{
-
-        border-radius:9px;
-    }
-
-    .video{
-
-        margin-bottom:25px;
-    }
-
-}
-
-</style>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IslamTube</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
 </head>
-
-
-<body>
-
-
-<!-- =================================
-     HEADER
-================================= -->
-
-<header class="top">
-
-
-<button
-class="topHome"
-onclick="go('home')">
-
-⌂
-
-</button>
-
-
-<div class="brand">
-
-<div class="logo"></div>
-
-<span>IslamTube</span>
-
-</div>
-
-
-<div class="topActions">
-
-
-<button
-class="ico"
-onclick="toggleSearch()">
-
-⌕
-
-</button>
-
-
-<button
-class="ico"
-onclick="go('notifications')">
-
-♧
-
-</button>
-
-
-<button
-class="ico"
-onclick="go('settings')">
-
-⋮
-
-</button>
-
-
-</div>
-
-</header>
-
-
-
-<!-- =================================
-     SEARCH PANEL
-================================= -->
-
-<div
-id="searchPanel"
-class="searchPanel">
-
-
-<input
-id="searchInput"
-placeholder="Search IslamTube..."
-oninput="searchNow()">
-
-
-<button
-class="action"
-onclick="clearSearch()">
-
-Clear
-
-</button>
-
-
-</div>
-
-
-
-<!-- =================================
-     CATEGORIES
-================================= -->
-
-<div
-id="chips"
-class="categories">
-
-
-<button
-class="chip active"
-onclick="filterCat('All',this)">
-
-All
-
-</button>
-
-
-<button
-class="chip"
-onclick="filterCat('Quran',this)">
-
-Quran
-
-</button>
-
-
-<button
-class="chip"
-onclick="filterCat('Lectures',this)">
-
-Lectures
-
-</button>
-
-
-<button
-class="chip"
-onclick="filterCat('Naats',this)">
-
-Naats
-
-</button>
-
-
-<button
-class="chip"
-onclick="filterCat('Stories',this)">
-
-Stories
-
-</button>
-
-
-<button
-class="chip"
-onclick="filterCat('Kids',this)">
-
-Kids
-
-</button>
-
-
-</div>
-
-
-
-<!-- =================================
-     MAIN CONTENT
-================================= -->
-
-<main id="main"></main>
-
-
-<div
-id="loading"
-class="loading">
-
-<div class="spinner"></div>
-
-<div>
-Loading more...
-</div>
-
-</div>
-
-
-
-<!-- =================================
-     BOTTOM NAVIGATION
-================================= -->
-
-<nav class="bottom">
-
-
-<button
-class="nav active"
-data-page="home"
-onclick="go('home')">
-
-<span class="nicon">⌂</span>
-
-Home
-
-</button>
-
-
-<button
-class="nav"
-data-page="shorts"
-onclick="openShorts()">
-
-<span class="nicon">▶</span>
-
-Shorts
-
-</button>
-
-
-<button
-class="nav"
-data-page="subscriptions"
-onclick="go('subscriptions')">
-
-<span class="nicon">▣</span>
-
-Subscriptions
-
-</button>
-
-
-<button
-class="nav"
-data-page="library"
-onclick="go('library')">
-
-<span class="nicon">▤</span>
-
-Library
-
-</button>
-
-
-</nav>
-
-
-
-<!-- =================================
-     VIDEO MODAL
-================================= -->
-
-<div
-id="modal"
-class="modal">
-
-
-<div class="modalTop">
-
-
-<button
-class="back"
-onclick="closeModal()">
-
-‹
-
-</button>
-
-
-<b id="modalName">
-
-Video
-
-</b>
-
-
-</div>
-
-
-<div id="modalBody"></div>
-
-
-</div>
-
-
-
-<!-- =================================
-     SHORTS SCREEN
-================================= -->
-
-<div
-id="shorts"
-class="shorts">
-
-
-<button
-class="closeShorts"
-onclick="closeShorts()">
-
-×
-
-</button>
-
-
-<div
-id="shortFeed">
-
-</div>
-
-
-</div>
-
-
-
-<!-- TOAST -->
-
-<div
-id="toast"
-class="toast">
-
-</div>
-
-
-
-<script>
-
-
-/* =========================================
-   IMAGES
-========================================= */
-
-const IMG=[
-
-"https://images.unsplash.com/photo-1609599006353-e629aaabfeae?w=1000",
-
-"https://images.unsplash.com/photo-1519817650390-64a93db51149?w=1000",
-
-"https://images.unsplash.com/photo-1542816417-098367e4a5c1?w=1000",
-
-"https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=1000",
-
-"https://images.unsplash.com/photo-1591604129939-f1efa4d9f7fa?w=1000"
-
-];
-
-
-
-/* =========================================
-   DEMO VIDEOS
-========================================= */
-
-const baseVideos=[
-
-
-{
-
-id:1,
-
-cat:"Quran",
-
-title:
-"Beautiful Quran Recitation That Soothes The Heart",
-
-channel:
-"Islamic Daily",
-
-views:"1.2M",
-
-time:"1 month ago",
-
-duration:"24:18",
-
-img:IMG[0],
-
-src:""
-
-},
-
-
-{
-
-id:2,
-
-cat:"Lectures",
-
-title:
-"Powerful Islamic Lecture About Patience",
-
-channel:
-"Deen Network",
-
-views:"845K",
-
-time:"2 weeks ago",
-
-duration:"42:15",
-
-img:IMG[1],
-
-src:""
-
-},
-
-
-{
-
-id:3,
-
-cat:"Naats",
-
-title:
-"Beautiful Naat Sharif Collection",
-
-channel:
-"Islamic Media",
-
-views:"678K",
-
-time:"5 days ago",
-
-duration:"18:40",
-
-img:IMG[2],
-
-src:""
-
-},
-
-
-{
-
-id:4,
-
-cat:"Quran",
-
-title:
-"Surah Al Rahman Beautiful Recitation",
-
-channel:
-"Quran World",
-
-views:"2.4M",
-
-time:"3 months ago",
-
-duration:"31:22",
-
-img:IMG[3],
-
-src:""
-
-},
-
-
-{
-
-id:5,
-
-cat:"Stories",
-
-title:
-"Amazing Islamic Story With A Beautiful Lesson",
-
-channel:
-"Islamic Stories",
-
-views:"956K",
-
-time:"1 week ago",
-
-duration:"28:55",
-
-img:IMG[4],
-
-src:""
-
-},
-
-
-{
-
-id:6,
-
-cat:"Lectures",
-
-title:
-"How To Become A Better Muslim",
-
-channel:
-"Deen Network",
-
-views:"1.8M",
-
-time:"2 months ago",
-
-duration:"51:20",
-
-img:IMG[1],
-
-src:""
-
-},
-
-
-{
-
-id:7,
-
-cat:"Quran",
-
-title:
-"Peaceful Quran Recitation For The Heart",
-
-channel:
-"Quran World",
-
-views:"3.1M",
-
-time:"4 months ago",
-
-duration:"36:09",
-
-img:IMG[0],
-
-src:""
-
-},
-
-
-{
-
-id:8,
-
-cat:"Kids",
-
-title:
-"Islamic Story For Kids",
-
-channel:
-"Islamic Kids",
-
-views:"540K",
-
-time:"3 days ago",
-
-duration:"14:32",
-
-img:IMG[2],
-
-src:""
-
-}
-
-];
-
-
-
-/* =========================================
-   POSTS
-========================================= */
-
-const posts=[
-
-{
-
-id:"p1",
-
-channel:"Islamic Daily",
-
-text:
-"May Allah make our hearts connected with the Quran. Ameen."
-
-},
-
-{
-
-id:"p2",
-
-channel:"Deen Network",
-
-text:
-"A small reminder: keep making dua and never lose hope in Allah."
-
-}
-
-];
-
-
-
-/* =========================================
-   SHORTS
-========================================= */
-
-const shortData=[
-
-{
-
-title:
-"Beautiful Quran Reminder",
-
-channel:
-"Islamic Shorts",
-
-src:""
-
-},
-
-{
-
-title:
-"Never Give Up On Dua",
-
-channel:
-"Daily Deen",
-
-src:""
-
-},
-
-{
-
-title:
-"Remember Allah Every Day",
-
-channel:
-"Islamic Reminder",
-
-src:""
-
-}
-
-];
-
-
-
-/* =========================================
-   VARIABLES
-========================================= */
-
-let category="All";
-
-let page=0;
-
-let busy=false;
-
-let query="";
-
-
-
-/* =========================================
-   LOCAL STORAGE
-========================================= */
-
-function key(k){
-
-return "islamtube_"+k;
-
-}
-
-
-function get(k,def=[]){
-
-try{
-
-return JSON.parse(
-localStorage.getItem(key(k))
-) ?? def;
-
-}
-
-catch{
-
-return def;
-
-}
-
-}
-
-
-function set(k,v){
-
-localStorage.setItem(
-key(k),
-JSON.stringify(v)
-);
-
-}
-
-
-
-/* =========================================
-   TOAST
-========================================= */
-
-function toast(t){
-
-const e=
-document.getElementById("toast");
-
-e.textContent=t;
-
-e.classList.add("show");
-
-setTimeout(()=>{
-
-e.classList.remove("show");
-
-},1800);
-
-}
-
-
-
-/* =========================================
-   NAVIGATION ACTIVE
-========================================= */
-
-function setNav(p){
-
-document
-.querySelectorAll(".nav")
-.forEach(x=>{
-
-x.classList.toggle(
-"active",
-x.dataset.page===p
-);
-
-});
-
-}
-
-
-
-/* =========================================
-   SEARCH OPEN
-========================================= */
-
-function toggleSearch(){
-
-const p=
-document.getElementById(
-"searchPanel"
-);
-
-p.classList.toggle("open");
-
-if(
-p.classList.contains("open")
-){
-
-document
-.getElementById("searchInput")
-.focus();
-
-}
-
-}
-
-
-function clearSearch(){
-
-document
-.getElementById("searchInput")
-.value="";
-
-query="";
-
-renderHome(true);
-
-}
-
-
-function searchNow(){
-
-query=
-document
-.getElementById("searchInput")
-.value
-.toLowerCase();
-
-renderHome(true);
-
-}
-
-
-
-/* =========================================
-   CATEGORY
-========================================= */
-
-function filterCat(c,b){
-
-category=c;
-
-document
-.querySelectorAll(".chip")
-.forEach(x=>
-x.classList.remove("active")
-);
-
-b.classList.add("active");
-
-renderHome(true);
-
-}
-
-
-
-/* =========================================
-   CREATE INFINITE LIST
-========================================= */
-
-function videoList(){
-
-let a=[];
-
-for(
-let i=0;
-i<100;
-i++
-){
-
-baseVideos.forEach(v=>{
-
-a.push({
-
-...v,
-
-id:v.id+"_"+i
-
-});
-
-});
-
-}
-
-return a;
-
-}
-
-
-
-/* =========================================
-   VIDEO CARD
-========================================= */
-
-function videoCard(v){
-
-return `
-
-<article class="video">
-
-
-<div
-class="thumb"
-onclick='openVideo(${JSON.stringify(v)})'>
-
-
-<img
-src="${v.img}"
-loading="lazy">
-
-
-<span class="duration">
-
-${v.duration}
-
-</span>
-
-
-</div>
-
-
-
-<div class="info">
-
-
-<div class="avatar">
-
-${v.channel[0]}
-
-</div>
-
-
-
-<div
-class="details"
-onclick='openVideo(${JSON.stringify(v)})'>
-
-
-<div class="title">
-
-${v.title}
-
-</div>
-
-
-<div class="meta">
-
-${v.channel}
-
-•
-
-${v.views}
-
-views
-
-•
-
-${v.time}
-
-</div>
-
-
-</div>
-
-
-
-<button
-class="more"
-onclick="event.stopPropagation();moreMenu()">
-
-⋮
-
-</button>
-
-
-</div>
-
-
-</article>
-
-`;
-
-}
-
-
-
-/* =========================================
-   POST CARD
-========================================= */
-
-function postCard(p){
-
-return `
-
-<article class="post">
-
-
-<div class="postHead">
-
-<div class="avatar">
-
-${p.channel[0]}
-
-</div>
-
-<b>
-
-${p.channel}
-
-</b>
-
-</div>
-
-
-
-<div class="postText">
-
-${p.text}
-
-</div>
-
-
-
-<div class="postBtns">
-
-<span>♡ Like</span>
-
-<span>♧ Comment</span>
-
-<span>↗ Share</span>
-
-</div>
-
-
-</article>
-
-`;
-
-}
-
-
-
-/* =========================================
-   HOME
-========================================= */
-
-function renderHome(reset=false){
-
-if(reset){
-
-page=0;
-
-document
-.getElementById("main")
-.innerHTML="";
-
-}
-
-setNav("home");
-
-document
-.getElementById("chips")
-.style.display="flex";
-
-loadMore();
-
-}
-
-
-
-/* =========================================
-   LOAD MORE
-========================================= */
-
-function loadMore(){
-
-if(busy)return;
-
-busy=true;
-
-document
-.getElementById("loading")
-.style.display="block";
-
-
-setTimeout(()=>{
-
-
-const all=
-videoList();
-
-
-let start=
-page*8;
-
-
-let end=
-start+8;
-
-
-let arr=
-all.slice(start,end);
-
-
-
-arr=
-arr.filter(v=>{
-
-return (
-
-category==="All"
-
-||
-
-v.cat===category
-
-)
-
-&&
-
-(
-
-!query
-
-||
-
-v.title
-.toLowerCase()
-.includes(query)
-
-||
-
-v.channel
-.toLowerCase()
-.includes(query)
-
-);
-
-});
-
-
-
-let out="";
-
-
-
-arr.forEach((v,i)=>{
-
-
-out+=
-videoCard(v);
-
-
-
-/* post after video */
-
-if(
-
-i===3
-
-&&
-
-category==="All"
-
-&&
-
-!query
-
-){
-
-out+=
-postCard(
-posts[
-page%
-posts.length
-]
-);
-
-}
-
-});
-
-
-
-if(out===""){
-
-out=
-`<div class="empty">
-No results found.
-    
+<body class="bg-[#0f0f0f] text-white min-h-screen flex flex-col pb-16 select-none">
+
+    <!-- Top Header -->
+    <header class="sticky top-0 z-50 bg-[#0f0f0f]/95 backdrop-blur flex items-center justify-between px-4 py-2.5 border-b border-[#272727]">
+        <div class="flex items-center gap-2 cursor-pointer" onclick="switchTab('home')">
+            <div class="w-7 h-7 bg-[#86efac] rounded-md flex items-center justify-center">
+                <i class="fa-solid fa-play text-black text-xs"></i>
+            </div>
+            <span class="font-bold text-base tracking-tight text-[#86efac]">Islamtube</span>
+        </div>
+        <div class="flex items-center gap-5 text-lg">
+            <i class="fa-solid fa-bell cursor-pointer text-gray-300 hover:text-[#86efac]" onclick="toggleNotification()"></i>
+            <i class="fa-solid fa-search cursor-pointer text-gray-300 hover:text-[#86efac]" onclick="toggleSearch()"></i>
+        </div>
+    </header>
+
+    <!-- Search Bar Modal -->
+    <div id="searchBar" class="hidden sticky top-[45px] z-50 bg-[#1f1f1f] p-2 border-b border-[#272727]">
+        <div class="flex items-center bg-[#0f0f0f] rounded-full px-3 py-1.5 border border-[#333]">
+            <input id="searchInput" type="text" placeholder="Search IslamTube..." class="bg-transparent text-sm text-white focus:outline-none w-full">
+            <i class="fa-solid fa-xmark text-gray-400 cursor-pointer ml-2" onclick="toggleSearch()"></i>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="hidden fixed top-14 right-4 z-50 bg-[#86efac] text-black text-xs font-semibold px-4 py-2 rounded-lg shadow-lg">
+        No new notifications!
+    </div>
+
+    <!-- VIEWS CONTAINER -->
+    <div id="viewsContainer" class="flex-1 w-full">
+        
+        <!-- HOME VIEW -->
+        <div id="view-home" class="block">
+            <!-- Category Filters -->
+            <div class="sticky top-[45px] z-40 bg-[#0f0f0f] px-3 py-2 flex gap-2 overflow-x-auto no-scrollbar border-b border-[#272727]">
+                <button class="bg-[#272727] p-2 rounded-lg text-sm"><i class="fa-solid fa-compass text-[#86efac]"></i></button>
+                <button class="bg-[#86efac] text-black px-3 py-1 rounded-lg text-xs font-semibold whitespace-nowrap">All</button>
+                <button class="bg-[#272727] text-white px-3 py-1 rounded-lg text-xs font-semibold whitespace-nowrap hover:bg-[#333]">Quran</button>
+                <button class="bg-[#272727] text-white px-3 py-1 rounded-lg text-xs font-semibold whitespace-nowrap hover:bg-[#333]">Naat</button>
+                <button class="bg-[#272727] text-white px-3 py-1 rounded-lg text-xs font-semibold whitespace-nowrap hover:bg-[#333]">Molvi</button>
+                <button class="bg-[#272727] text-white px-3 py-1 rounded-lg text-xs font-semibold whitespace-nowrap hover:bg-[#333]">Cartoon</button>
+                <button class="bg-[#272727] text-white px-3 py-1 rounded-lg text-xs font-semibold whitespace-nowrap hover:bg-[#333]">Islamic Stories</button>
+            </div>
+
+            <!-- Feed -->
+            <main class="space-y-3 pt-2">
+                <!-- Main Infinite Video Container -->
+                <div id="infiniteFeed" class="space-y-3">
+                    <!-- Cards will be dynamically added via JavaScript -->
+                </div>
+
+                <!-- Horizontal Shorts Section -->
+                <div class="py-3 border-y border-[#272727] my-2">
+                    <div class="flex items-center gap-2 px-3 mb-3">
+                        <i class="fa-solid fa-bolt text-[#86efac] text-xl"></i>
+                        <h2 class="font-bold text-lg">Shorts</h2>
+                    </div>
+                    <div class="flex gap-2 overflow-x-auto px-3 no-scrollbar">
+                        <div class="min-w-[140px] h-[240px] rounded-xl overflow-hidden relative bg-gray-800 cursor-pointer" onclick="switchTab('shorts')">
+                            <img src="https://images.unsplash.com/photo-1585036156171-384164a8c675?auto=format&fit=crop&q=80&w=300" class="w-full h-full object-cover opacity-80">
+                            <div class="absolute bottom-2 left-2 right-2">
+                                <p class="font-semibold text-xs line-clamp-2">Heart Touching Quran Status</p>
+                                <p class="text-[10px] text-[#86efac]">2.1M views</p>
+                            </div>
+                        </div>
+                        <div class="min-w-[140px] h-[240px] rounded-xl overflow-hidden relative bg-gray-800 cursor-pointer" onclick="switchTab('shorts')">
+                            <img src="https://images.unsplash.com/photo-1591557304193-4e4b52b31a31?auto=format&fit=crop&q=80&w=300" class="w-full h-full object-cover opacity-80">
+                            <div class="absolute bottom-2 left-2 right-2">
+                                <p class="font-semibold text-xs line-clamp-2">Beautiful Makkah View</p>
+                                <p class="text-[10px] text-[#86efac]">3.8M views</p>
+                            </div>
+                        </div>
+                        <div class="min-w-[140px] h-[240px] rounded-xl overflow-hidden relative bg-gray-800 cursor-pointer" onclick="switchTab('shorts')">
+                            <img src="https://images.unsplash.com/photo-1542810634-71277d95dcbb?auto=format&fit=crop&q=80&w=300" class="w-full h-full object-cover opacity-80">
+                            <div class="absolute bottom-2 left-2 right-2">
+                                <p class="font-semibold text-xs line-clamp-2">Madina Sharif Climate</p>
+                                <p class="text-[10px] text-[#86efac]">1.5M views</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <!-- SHORTS VIEW -->
+        <div id="view-shorts" class="hidden h-[calc(100vh-110px)] flex flex-col items-center justify-center p-4">
+            <div class="w-full max-w-sm h-full bg-gray-900 rounded-2xl overflow-hidden relative border border-[#272727] flex flex-col justify-end p-4">
+                <img src="https://images.unsplash.com/photo-1585036156171-384164a8c675?auto=format&fit=crop&q=80&w=600" class="absolute inset-0 w-full h-full object-cover opacity-70">
+                <div class="relative z-10 space-y-2">
+                    <span class="bg-[#86efac] text-black text-[10px] font-bold px-2 py-0.5 rounded">FEATURED SHORT</span>
+                    <h3 class="font-bold text-base">Beautiful Islamic Reminder</h3>
+                    <p class="text-xs text-gray-300">@islamic_shorts • 2.1M views</p>
+                </div>
+                <!-- Action sidebar -->
+                <div class="absolute right-3 bottom-12 z-10 flex flex-col items-center gap-5 text-xl">
+                    <button class="flex flex-col items-center text-xs" onclick="this.querySelector('i').classList.toggle('text-[#86efac]')"><i class="fa-solid fa-thumbs-up text-xl"></i><span>120K</span></button>
+                    <button class="flex flex-col items-center text-xs"><i class="fa-solid fa-comment text-xl"></i><span>450</span></button>
+                    <button class="flex flex-col items-center text-xs" onclick="alert('Short Link Copied!')"><i class="fa-solid fa-share text-xl"></i><span>Share</span></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- SUBSCRIPTIONS VIEW -->
+        <div id="view-subs" class="hidden p-4 space-y-4">
+            <h2 class="font-bold text-lg text-[#86efac]">Subscribed Channels</h2>
+            <div class="space-y-3">
+                <div class="flex items-center justify-between bg-[#1f1f1f] p-3 rounded-xl">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-[#86efac] text-black font-bold flex items-center justify-center">Q</div>
+                        <div>
+                            <h4 class="font-semibold text-sm">Quran Global</h4>
+                            <p class="text-xs text-gray-400">1.2M Subscribers</p>
+                        </div>
+                    </div>
+                    <button onclick="toggleSub(this)" class="bg-[#272727] text-white px-3 py-1 rounded-full text-xs">Subscribed</button>
+                </div>
+                <div class="flex items-center justify-between bg-[#1f1f1f] p-3 rounded-xl">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-blue-600 text-white font-bold flex items-center justify-center">W</div>
+                        <div>
+                            <h4 class="font-semibold text-sm">Waqar Malik</h4>
+                            <p class="text-xs text-gray-400">850K Subscribers</p>
+                        </div>
+                    </div>
+                    <button onclick="toggleSub(this)" class="bg-[#272727] text-white px-3 py-1 rounded-full text-xs">Subscribed</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- YOU VIEW -->
+        <div id="view-you" class="hidden p-4 pt-6 space-y-6">
+            <div class="flex items-center gap-4 bg-[#1f1f1f] p-4 rounded-2xl border border-[#272727]">
+                <div class="w-14 h-14 rounded-full bg-[#86efac] text-black font-bold text-xl flex items-center justify-center">U</div>
+                <div>
+                    <h2 class="font-bold text-lg">User Profile</h2>
+                    <p class="text-xs text-gray-400">@islamtube_official</p>
+                </div>
+            </div>
+            <div class="space-y-2">
+                <div class="flex items-center gap-4 p-3 bg-[#1f1f1f] rounded-xl cursor-pointer hover:bg-[#272727]"><i class="fa-solid fa-clock-rotate-left text-[#86efac] w-5"></i><span>Watch History</span></div>
+                <div class="flex items-center gap-4 p-3 bg-[#1f1f1f] rounded-xl cursor-pointer hover:bg-[#272727]"><i class="fa-solid fa-[#86efac] fa-thumbs-up text-[#86efac] w-5"></i><span>Liked Videos</span></div>
+                <div class="flex items-center gap-4 p-3 bg-[#1f1f1f] rounded-xl cursor-pointer hover:bg-[#272727]"><i class="fa-solid fa-download text-[#86efac] w-5"></i><span>Downloads</span></div>
+                <div class="flex items-center gap-4 p-3 bg-[#1f1f1f] rounded-xl cursor-pointer hover:bg-[#272727]"><i class="fa-solid fa-gear text-gray-400 w-5"></i><span>Settings</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Video Player Modal -->
+    <div id="playerModal" class="fixed inset-0 bg-[#0f0f0f] z-[100] hidden flex flex-col overflow-y-auto">
+        <div class="sticky top-0 z-10 bg-[#0f0f0f] p-2 flex items-center gap-3 border-b border-[#272727]">
+            <button onclick="closePlayer()" class="p-2 text-lg text-[#86efac]"><i class="fa-solid fa-arrow-left"></i></button>
+            <span id="modalHeaderTitle" class="text-xs font-semibold truncate flex-1">Now Playing</span>
+        </div>
+        <div class="w-full aspect-video bg-black sticky top-[45px] z-10">
+            <iframe id="ytIframe" class="w-full h-full" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+        <div class="p-4 space-y-4">
+            <div>
+                <h2 id="modalTitle" class="font-bold text-base leading-snug">Video Title</h2>
+                <p id="modalViews" class="text-xs text-gray-400 mt-1">1.2M views • 2 days ago</p>
+            </div>
+            
+            <div class="flex items-center justify-between py-2 border-y border-[#272727]">
+                <div class="flex items-center gap-3">
+                    <div id="modalAvatar" class="w-9 h-9 rounded-full bg-[#86efac] text-black font-bold flex items-center justify-center text-sm">C</div>
+                    <div>
+                        <h4 id="modalChannel" class="font-semibold text-xs">Channel Name</h4>
+                        <p class="text-[10px] text-gray-400">1.2M Subscribers</p>
+                    </div>
+                </div>
+                <button onclick="toggleSub(this)" class="bg-[#86efac] text-black font-bold px-4 py-1.5 rounded-full text-xs">Subscribe</button>
+            </div>
+
+            <div class="flex gap-3 overflow-x-auto no-scrollbar py-1">
+                <button onclick="alert('Added to Liked Videos!')" class="bg-[#272727] px-4 py-2 rounded-full text-xs flex items-center gap-2"><i class="fa-solid fa-thumbs-up text-[#86efac]"></i> Like</button>
+                <button onclick="alert('Video Downloaded!')" class="bg-[#272727] px-4 py-2 rounded-full text-xs flex items-center gap-2"><i class="fa-solid fa-download text-[#86efac]"></i> Download</button>
+                <button onclick="alert('Link Copied!')" class="bg-[#272727] px-4 py-2 rounded-full text-xs flex items-center gap-2"><i class="fa-solid fa-share text-[#86efac]"></i> Share</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <nav class="fixed bottom-0 left-0 right-0 bg-[#0f0f0f] border-t border-[#272727] flex justify-around py-2.5 text-[10px] z-50">
+        <div onclick="switchTab('home')" id="nav-home" class="nav-btn text-center text-[#86efac] cursor-pointer"><i class="fa-solid fa-house text-lg block mb-0.5"></i>Home</div>
+        <div onclick="switchTab('shorts')" id="nav-shorts" class="nav-btn text-center text-gray-400 cursor-pointer"><i class="fa-solid fa-bolt text-lg block mb-0.5"></i>Shorts</div>
+        <div onclick="switchTab('subs')" id="nav-subs" class="nav-btn text-center text-gray-400 cursor-pointer"><i class="fa-solid fa-circle-play text-lg block mb-0.5"></i>Subscriptions</div>
+        <div onclick="switchTab('you')" id="nav-you" class="nav-btn text-center text-gray-400 cursor-pointer"><i class="fa-solid fa-user text-lg block mb-0.5"></i>You</div>
+    </nav>
+
+    <script>
+        const sampleVideos = [
+            { id: "O1pM06Z4W-o", title: "Beautiful Surah Rehman Tilawat - Heart Soothing", channel: "Quran Global", views: "1.2M views • 2 days ago", duration: "10:45", img: "https://images.unsplash.com/photo-1609599006353-e629aaab315a?auto=format&fit=crop&q=80&w=600" },
+            { id: "V1yZ05w4eCQ", title: "History of Islam - Complete Detailed Documentary", channel: "Waqar Malik", views: "68K views • 3 hours ago", duration: "22:58", img: "https://images.unsplash.com/photo-1564767609342-620cb19b2357?auto=format&fit=crop&q=80&w=600" },
+            { id: "7X8II6J-y9A", title: "Emotional Bayan - Real Purpose of Life", channel: "Islamic Info", views: "450K views • 1 week ago", duration: "18:12", img: "https://images.unsplash.com/photo-1542810634-71277d95dcbb?auto=format&fit=crop&q=80&w=600" }
+        ];
+
+        const feed = document.getElementById('infiniteFeed');
+
+        function appendVideos() {
+            sampleVideos.forEach(v => {
+                const card = document.createElement('div');
+                card.className = "bg-[#141414] border-b border-[#222] pb-3 cursor-pointer";
+                card.onclick = () => openPlayer(v.id, v.title, v.channel, v.views);
+                card.innerHTML = `
+                    <div class="relative aspect-video bg-black">
+                        <img src="${v.img}" class="w-full h-full object-cover">
+                        <span class="absolute bottom-2 right-2 bg-black/80 text-[11px] px-1.5 py-0.5 rounded font-medium">${v.duration}</span>
+                    </div>
+                    <div class="p-3 flex gap-3">
+                        <div class="w-9 h-9 rounded-full bg-[#86efac] text-black font-bold flex items-center justify-center text-sm flex-shrink-0">${v.channel[0]}</div>
+                        <div class="flex-1">
+                            <h3 class="font-semibold text-sm line-clamp-2 leading-snug">${v.title}</h3>
+                            <p class="text-xs text-gray-400 mt-1">${v.channel} • ${v.views}</p>
+                        </div>
+                        <i class="fa-solid fa-ellipsis-vertical text-gray-400 p-1"></i>
+                    </div>
+                `;
+                feed.appendChild(card);
+            });
+        }
+
+        // Initial Feed Load
+        appendVideos();
+
+        // Infinite Scroll
+        window.addEventListener('scroll', () => {
+            if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 400) {
+                appendVideos();
+            }
+        });
+
+        // Navigation
+        function switchTab(tabName) {
+            ['home', 'shorts', 'subs', 'you'].forEach(t => {
+                document.getElementById('view-' + t).classList.add('hidden');
+                document.getElementById('nav-' + t).classList.remove('text-[#86efac]');
+                document.getElementById('nav-' + t).classList.add('text-gray-400');
+            });
+
+            document.getElementById('view-' + tabName).classList.remove('hidden');
+            document.getElementById('nav-' + tabName).classList.remove('text-gray-400');
+            document.getElementById('nav-' + tabName).classList.add('text-[#86efac]');
+            window.scrollTo(0,0);
+        }
+
+        // Video Player
+        function openPlayer(videoId, title, channel, views) {
+            document.getElementById('playerModal').classList.remove('hidden');
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalHeaderTitle').innerText = title;
+            document.getElementById('modalChannel').innerText = channel;
+            document.getElementById('modalAvatar').innerText = channel[0];
+            document.getElementById('modalViews').innerText = views;
+            document.getElementById('ytIframe').src = "https://www.youtube.com/embed/" + videoId + "?autoplay=1";
+            document.body.style.overflow = "hidden";
+        }
+
+        function closePlayer() {
+            document.getElementById('playerModal').classList.add('hidden');
+            document.getElementById('ytIframe').src = "";
+            document.body.style.overflow = "auto";
+        }
+
+        // UI Extras
+        function toggleSearch() {
+            document.getElementById('searchBar').classList.toggle('hidden');
+        }
+
+        function toggleNotification() {
+            const toast = document.getElementById('toast');
+            toast.classList.remove('hidden');
+            setTimeout(() => toast.classList.add('hidden'), 2000);
+        }
+
+        function toggleSub(btn) {
+            if(btn.innerText === 'Subscribe') {
+                btn.innerText = 'Subscribed';
+                btn.className = 'bg-[#272727] text-white font-normal px-4 py-1.5 rounded-full text-xs';
+            } else {
+                btn.innerText = 'Subscribe';
+                btn.className = 'bg-[#86efac] text-black font-bold px-4 py-1.5 rounded-full text-xs';
+            }
+        }
+    </script>
+</body>
+   </html>
+                   
