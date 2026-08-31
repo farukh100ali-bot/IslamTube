@@ -4,210 +4,214 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IslamTube</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        body {
+            margin: 0;
+            background-color: #0f0f0f;
+            color: #ffffff;
+            font-family: Roboto, Arial, sans-serif;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 15px;
+            background-color: #0f0f0f;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .logo-group {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .play-icon {
+            width: 30px;
+            height: 22px;
+            background-color: #2e7d32; /* Islamic Green */
+            border-radius: 6px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .play-icon::after {
+            content: '';
+            border-left: 8px solid white;
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
+            margin-left: 2px;
+        }
+        .logo-text {
+            font-size: 20px;
+            font-weight: bold;
+            letter-spacing: -1px;
+        }
+        .categories {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding: 10px 15px;
+            background-color: #0f0f0f;
+            white-space: nowrap;
+            border-bottom: 1px solid #383838;
+        }
+        .categories::-webkit-scrollbar { display: none; }
+        .chip {
+            background-color: #383838;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        .chip.active {
+            background-color: #ffffff;
+            color: #000000;
+        }
+        .video-card {
+            margin-bottom: 25px;
+        }
+        .thumbnail {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background-color: #333333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #888;
+        }
+        .video-info {
+            padding: 12px 15px;
+            display: flex;
+            gap: 12px;
+        }
+        .channel-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: #2e7d32;
+        }
+        .video-text { flex: 1; }
+        .video-title {
+            font-size: 16px;
+            margin: 0 0 5px 0;
+            line-height: 1.4;
+        }
+        .video-details {
+            font-size: 12px;
+            color: #aaa;
+            margin: 0;
+        }
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #0f0f0f;
+            display: flex;
+            justify-content: space-around;
+            padding: 8px 0;
+            border-top: 1px solid #383838;
+        }
+        .nav-item {
+            font-size: 10px;
+            color: #ffffff;
+            text-align: center;
+            opacity: 0.7;
+        }
+        .nav-item.active { opacity: 1; }
+        
+        /* Splash Screen Styles */
+        #splash-screen {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: #0f0f0f;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease-out;
+        }
+        .splash-logo {
+            width: 90px;
+            height: 64px;
+            background-color: #2e7d32;
+            border-radius: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .splash-logo::after {
+            content: '';
+            border-left: 25px solid white;
+            border-top: 15px solid transparent;
+            border-bottom: 15px solid transparent;
+            margin-left: 5px;
+        }
+        .splash-text {
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+        }
     </style>
 </head>
-<body class="bg-[#0f0f0f] text-white min-h-screen flex flex-col pb-16">
+<body>
 
-    <!-- Top Header -->
-    <header class="sticky top-0 z-50 bg-[#0f0f0f]/95 backdrop-blur flex items-center justify-between px-4 py-2.5 border-b border-[#272727]">
-        <div class="flex items-center gap-2">
-            <div class="w-7 h-7 bg-red-600 rounded-md flex items-center justify-center">
-                <i class="fa-solid fa-play text-white text-xs"></i>
-            </div>
-            <span class="font-bold text-base tracking-tight">Islamtube</span>
-        </div>
-        <div class="flex items-center gap-5 text-lg">
-            <i class="fa-solid fa-bell cursor-pointer text-gray-300" onclick="alert('No new notifications')"></i>
-            <i class="fa-solid fa-search cursor-pointer text-gray-300" onclick="alert('Search feature coming soon!')"></i>
+    <!-- Splash Screen -->
+    <div id="splash-screen">
+        <div class="splash-logo"></div>
+        <div class="splash-text">IslamTube</div>
+    </div>
+
+    <header>
+        <div class="logo-group">
+            <div class="play-icon"></div>
+            <div class="logo-text">IslamTube</div>
         </div>
     </header>
 
-    <!-- VIEWS CONTAINER -->
-    <div id="viewsContainer" class="flex-1 w-full">
-        
-        <!-- ================= HOME VIEW ================= -->
-        <div id="view-home" class="block">
-            <!-- Category Filters Bar -->
-            <div class="sticky top-[45px] z-40 bg-[#0f0f0f] px-3 py-2 flex gap-2 overflow-x-auto no-scrollbar border-b border-[#272727]">
-                <button class="bg-[#272727] p-2 rounded-lg text-sm"><i class="fa-solid fa-compass text-green-400"></i></button>
-                <button class="bg-white text-black px-3 py-1 rounded-lg text-xs font-semibold whitespace-nowrap">All</button>
-                <button class="bg-[#272727] text-white px-3 py-1 rounded-lg text-xs font-semibold whitespace-nowrap">Quran</button>
-                <button class="bg-[#272727] text-white px-3 py-1 rounded-lg text-xs font-semibold whitespace-nowrap">Naat</button>
-                <button class="bg-[#272727] text-white px-3 py-1 rounded-lg text-xs font-semibold whitespace-nowrap">Molvi</button>
-            </div>
+    <div class="categories">
+        <div class="chip active">All</div>
+        <div class="chip">Quran</div>
+        <div class="chip">Lectures</div>
+        <div class="chip">Naats</div>
+        <div class="chip">Stories</div>
+        <div class="chip">Nasheeds</div>
+    </div>
 
-            <!-- Main Feed -->
-            <main class="space-y-2 pt-2">
-                <!-- Video 1 -->
-                <div class="bg-[#141414] border-b border-[#222] pb-3 cursor-pointer" onclick="openPlayer('O1pM06Z4W-o', 'Quran Tilawat - Heart Touching')">
-                    <div class="relative aspect-video bg-black">
-                        <img src="https://images.unsplash.com/photo-1609599006353-e629aaab315a?auto=format&fit=crop&q=80&w=600" class="w-full h-full object-cover">
-                        <span class="absolute bottom-2 right-2 bg-black/80 text-[11px] px-1.5 py-0.5 rounded font-medium">10:45</span>
-                    </div>
-                    <div class="p-3 flex gap-3">
-                        <div class="w-9 h-9 rounded-full bg-blue-600 flex items-center justify-center font-bold text-sm">Q</div>
-                        <div class="flex-1">
-                            <h3 class="font-semibold text-sm line-clamp-2">Beautiful Surah Rehman Tilawat - Heart Soothing</h3>
-                            <p class="text-xs text-gray-400 mt-1">Quran Global • 1.2M views • 2 days ago</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Shorts Section on Home -->
-                <div class="py-2">
-                    <div class="flex items-center gap-2 px-3 mb-2">
-                        <i class="fa-solid fa-bolt text-red-500 text-xl"></i>
-                        <h2 class="font-bold text-lg">Shorts</h2>
-                    </div>
-                    <div class="flex gap-2 overflow-x-auto px-3 no-scrollbar pb-2">
-                        <!-- Short Card 1 -->
-                        <div class="min-w-[140px] h-[240px] rounded-xl overflow-hidden relative bg-gray-800" onclick="alert('Shorts player coming soon!')">
-                            <img src="https://images.unsplash.com/photo-1585036156171-384164a8c675?auto=format&fit=crop&q=80&w=300" class="w-full h-full object-cover opacity-80">
-                            <div class="absolute bottom-2 left-2 right-2">
-                                <p class="font-semibold text-xs line-clamp-2">Islamic Status Video</p>
-                                <p class="text-[10px] text-gray-300">2M views</p>
-                            </div>
-                        </div>
-                        <!-- Short Card 2 -->
-                        <div class="min-w-[140px] h-[240px] rounded-xl overflow-hidden relative bg-gray-800" onclick="alert('Shorts player coming soon!')">
-                            <img src="https://images.unsplash.com/photo-1591557304193-4e4b52b31a31?auto=format&fit=crop&q=80&w=300" class="w-full h-full object-cover opacity-80">
-                            <div class="absolute bottom-2 left-2 right-2">
-                                <p class="font-semibold text-xs line-clamp-2">Makkah Beautiful View</p>
-                                <p class="text-[10px] text-gray-300">500K views</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Video 2 -->
-                <div class="bg-[#141414] border-b border-[#222] pb-3 cursor-pointer" onclick="openPlayer('V1yZ05w4eCQ', 'Islamic History')">
-                    <div class="relative aspect-video bg-black">
-                        <img src="https://images.unsplash.com/photo-1564767609342-620cb19b2357?auto=format&fit=crop&q=80&w=600" class="w-full h-full object-cover">
-                        <span class="absolute bottom-2 right-2 bg-black/80 text-[11px] px-1.5 py-0.5 rounded font-medium">45:20</span>
-                    </div>
-                    <div class="p-3 flex gap-3">
-                        <div class="w-9 h-9 rounded-full bg-green-600 flex items-center justify-center font-bold text-sm">W</div>
-                        <div class="flex-1">
-                            <h3 class="font-semibold text-sm line-clamp-2">History of Islam - Complete Documentary</h3>
-                            <p class="text-xs text-gray-400 mt-1">Waqar Malik • 68K views • 3 hours ago</p>
-                        </div>
-                    </div>
-                </div>
-            </main>
-        </div>
-
-        <!-- ================= SHORTS VIEW ================= -->
-        <div id="view-shorts" class="hidden h-full flex items-center justify-center pt-20">
-            <div class="text-center">
-                <i class="fa-solid fa-bolt text-5xl text-red-500 mb-4"></i>
-                <h2 class="text-xl font-bold">Shorts Feed</h2>
-                <p class="text-gray-400 text-sm mt-2">Swipe up functionality will be here!</p>
-            </div>
-        </div>
-
-        <!-- ================= SUBSCRIPTIONS VIEW ================= -->
-        <div id="view-subs" class="hidden h-full flex items-center justify-center pt-20">
-            <div class="text-center">
-                <i class="fa-solid fa-circle-play text-5xl text-gray-400 mb-4"></i>
-                <h2 class="text-xl font-bold">Subscriptions</h2>
-                <p class="text-gray-400 text-sm mt-2">Channels you subscribed to.</p>
-            </div>
-        </div>
-
-        <!-- ================= YOU VIEW ================= -->
-        <div id="view-you" class="hidden h-full p-4 pt-10">
-            <div class="flex items-center gap-4 mb-8">
-                <div class="w-16 h-16 rounded-full bg-blue-500 flex items-center justify-center text-2xl font-bold">U</div>
-                <div>
-                    <h2 class="font-bold text-xl">User Profile</h2>
-                    <p class="text-sm text-gray-400">@islamtube_user</p>
-                </div>
-            </div>
-            <div class="space-y-4">
-                <div class="flex items-center gap-4 p-2 text-lg"><i class="fa-solid fa-history w-6"></i> History</div>
-                <div class="flex items-center gap-4 p-2 text-lg"><i class="fa-solid fa-list w-6"></i> Playlists</div>
-                <div class="flex items-center gap-4 p-2 text-lg"><i class="fa-regular fa-clock w-6"></i> Watch Later</div>
+    <div class="video-card">
+        <div class="thumbnail">Video Preview</div>
+        <div class="video-info">
+            <div class="channel-icon"></div>
+            <div class="video-text">
+                <h3 class="video-title">Beautiful Quran Recitation That Soothes The Heart</h3>
+                <p class="video-details">Islamic Daily • 1.2M views • 1 month ago</p>
             </div>
         </div>
     </div>
 
-    <!-- Video Player Modal -->
-    <div id="playerModal" class="fixed inset-0 bg-[#0f0f0f] z-[100] hidden flex flex-col">
-        <div class="bg-black w-full aspect-video relative">
-            <button onclick="closePlayer()" class="absolute top-2 left-2 z-10 bg-black/50 p-2 rounded-full text-white hover:bg-black/80">
-                <i class="fa-solid fa-chevron-down"></i>
-            </button>
-            <iframe id="ytIframe" class="w-full h-full" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-        </div>
-        <div class="p-4">
-            <h2 id="modalTitle" class="font-bold text-lg mb-2">Video Title</h2>
-            <div class="flex gap-4 border-b border-[#272727] pb-4 mb-4">
-                <button class="bg-[#272727] px-4 py-1.5 rounded-full text-sm font-medium"><i class="fa-regular fa-thumbs-up mr-1"></i> Like</button>
-                <button class="bg-[#272727] px-4 py-1.5 rounded-full text-sm font-medium"><i class="fa-solid fa-share mr-1"></i> Share</button>
-            </div>
-            <div class="flex items-center justify-between">
-                <div class="flex items-center gap-2">
-                    <div class="w-8 h-8 rounded-full bg-gray-600"></div>
-                    <span class="font-semibold text-sm">Channel Name</span>
-                </div>
-                <button class="bg-white text-black px-3 py-1 rounded-full text-sm font-bold">Subscribe</button>
-            </div>
-        </div>
+    <div class="bottom-nav">
+        <div class="nav-item active">Home</div>
+        <div class="nav-item">Shorts</div>
+        <div class="nav-item">Subscriptions</div>
+        <div class="nav-item">Library</div>
     </div>
-
-    <!-- Bottom Navigation -->
-    <nav class="fixed bottom-0 left-0 right-0 bg-[#0f0f0f] border-t border-[#272727] flex justify-around py-2.5 text-[10px] z-50">
-        <div onclick="switchTab('home')" id="nav-home" class="nav-btn text-center text-white cursor-pointer"><i class="fa-solid fa-house text-lg block mb-0.5"></i>Home</div>
-        <div onclick="switchTab('shorts')" id="nav-shorts" class="nav-btn text-center text-gray-500 cursor-pointer"><i class="fa-solid fa-bolt text-lg block mb-0.5"></i>Shorts</div>
-        <div onclick="switchTab('subs')" id="nav-subs" class="nav-btn text-center text-gray-500 cursor-pointer"><i class="fa-solid fa-circle-play text-lg block mb-0.5"></i>Subscriptions</div>
-        <div onclick="switchTab('you')" id="nav-you" class="nav-btn text-center text-gray-500 cursor-pointer"><i class="fa-solid fa-user text-lg block mb-0.5"></i>You</div>
-    </nav>
 
     <script>
-        // Tab Switching Logic
-        function switchTab(tabName) {
-            // Hide all views
-            document.getElementById('view-home').classList.add('hidden');
-            document.getElementById('view-shorts').classList.add('hidden');
-            document.getElementById('view-subs').classList.add('hidden');
-            document.getElementById('view-you').classList.add('hidden');
-            
-            // Reset all nav icons to gray
-            const navs = document.querySelectorAll('.nav-btn');
-            navs.forEach(nav => {
-                nav.classList.remove('text-white');
-                nav.classList.add('text-gray-500');
-            });
-
-            // Show selected view and highlight icon
-            document.getElementById('view-' + tabName).classList.remove('hidden');
-            document.getElementById('nav-' + tabName).classList.remove('text-gray-500');
-            document.getElementById('nav-' + tabName).classList.add('text-white');
-            
-            // Scroll to top
-            window.scrollTo(0,0);
-        }
-
-        // Video Player Logic
-        function openPlayer(videoId, title) {
-            document.getElementById('playerModal').classList.remove('hidden');
-            document.getElementById('modalTitle').innerText = title;
-            // Load real YouTube video
-            document.getElementById('ytIframe').src = "https://www.youtube.com/embed/" + videoId + "?autoplay=1";
-            document.body.style.overflow = "hidden"; // Stop background scrolling
-        }
-
-        function closePlayer() {
-            document.getElementById('playerModal').classList.add('hidden');
-            document.getElementById('ytIframe').src = ""; // Stop audio playing in background
-            document.body.style.overflow = "auto"; // Allow scrolling again
-        }
+        // Hide splash screen after 2 seconds
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const splash = document.getElementById('splash-screen');
+                splash.style.opacity = '0';
+                setTimeout(() => {
+                    splash.style.display = 'none';
+                }, 500);
+            }, 2000);
+        });
     </script>
 </body>
-                    </html>
+                                      </html>
                 
