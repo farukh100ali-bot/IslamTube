@@ -296,6 +296,49 @@
             }
         }
     </script>
-</body>
+  <!-- Upload Modal -->
+  <div id="uploadModal" class="hidden fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4">
+    <div class="bg-[#1f1f1f] border border-[#272727] rounded-xl p-5 w-full max-w-md">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="text-lg font-bold text-white">Upload Content</h3>
+        <i class="fa-solid fa-xmark text-gray-400 cursor-pointer text-xl" onclick="toggleUploadModal()"></i>
+      </div>
+      <form id="uploadForm" class="flex flex-col gap-3">
+        <select id="uploadType" class="bg-[#0f0f0f] text-white p-2.5 rounded-lg border border-[#333] outline-none">
+          <option value="video">Long Video</option>
+          <option value="short">Short</option>
+          <option value="post">Post (Text/Image)</option>
+        </select>
+        <input type="text" id="uploadTitle" placeholder="Title/Caption" class="bg-[#0f0f0f] text-white p-2.5 rounded-lg border border-[#333] outline-none" required>
+        <input type="file" id="uploadFile" accept="video/*,image/*" class="text-xs text-gray-400 file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-[#86efac] file:text-black font-semibold cursor-pointer" required>
+        <button type="submit" class="bg-[#86efac] text-black font-bold py-2.5 rounded-lg mt-2 hover:opacity-90">Upload Now</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Country Settings Modal -->
+  <div id="settingsModal" class="hidden fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4">
+    <div class="bg-[#1f1f1f] border border-[#272727] rounded-xl p-5 w-full max-w-md">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="text-lg font-bold text-white">Select Region / Country</h3>
+        <i class="fa-solid fa-xmark text-gray-400 cursor-pointer text-xl" onclick="toggleSettingsModal()"></i>
+      </div>
+      <div class="flex flex-col gap-2">
+        <button onclick="setCountry('PK')" class="text-left bg-[#0f0f0f] hover:bg-[#272727] text-white p-3 rounded-lg flex items-center justify-between border border-[#333]">
+          <span>🇵🇰 Pakistan (Urdu)</span>
+          <i class="fa-solid fa-check text-[#86efac] hidden" id="check-PK"></i>
+        </button>
+        <button onclick="setCountry('AR')" class="text-left bg-[#0f0f0f] hover:bg-[#272727] text-white p-3 rounded-lg flex items-center justify-between border border-[#333]">
+          <span>🇸🇦 Arab Region (Arabic)</span>
+          <i class="fa-solid fa-check text-[#86efac] hidden" id="check-AR"></i>
+        </button>
+        <button onclick="setCountry('EU')" class="text-left bg-[#0f0f0f] hover:bg-[#272727] text-white p-3 rounded-lg flex items-center justify-between border border-[#333]">
+          <span>🇪🇺 Europe (English)</span>
+          <i class="fa-solid fa-check text-[#86efac] hidden" id="check-EU"></i>
+        </button>
+      </div>
+    </div>
+            </div>
+    </body>
    </html>
                    
