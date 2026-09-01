@@ -23,10 +23,8 @@ jobs:
         with:
           channel: 'stable'
 
-      - name: Generate Full Flutter Project
-        run: |
-          flutter create . --org com.islamtube.app --project-name islam_tube --force
-          flutter pub get
+      - name: Install Dependencies
+        run: flutter pub get
 
       - name: Build Release APK
         run: flutter build apk --release
