@@ -22,14 +22,15 @@ jobs:
         with:
           channel: 'stable'
 
-      - name: Install dependencies
-        run: flutter pub get
+      - name: Create Flutter App Structure
+        run: |
+          flutter create . --force
 
       - name: Build APK
         run: flutter build apk --release
 
       - name: Upload APK Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: IslamTube-APK
           path: build/app/outputs/flutter-apk/app-release.apk
