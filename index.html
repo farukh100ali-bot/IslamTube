@@ -1,1 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IslamTube</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body { background-color: #0F0F0F; color: #ffffff; font-family: sans-serif; }
+    .accent-color { color: #00C853; }
+    .bg-accent { background-color: #00C853; }
+    .bg-card { background-color: #1F1F1F; }
+  </style>
+</head>
+<body class="max-w-md mx-auto min-h-screen flex flex-col justify-between border-x border-zinc-800">
 
+  <!-- Top Header -->
+  <header class="flex items-center justify-between p-4 sticky top-0 bg-[#0F0F0F] z-10">
+    <div class="flex items-center gap-2">
+      <i class="fa-solid fa-circle-play text-2xl text-[#00C853]"></i>
+      <span class="font-bold text-xl tracking-wide">IslamTube</span>
+    </div>
+    <div class="flex items-center gap-4 text-lg">
+      <i class="fa-solid fa-[#00C853] fa-magnifying-glass cursor-pointer"></i>
+      <div class="w-7 h-7 rounded-full bg-[#00C853] text-black font-bold flex items-center justify-center text-sm">M</div>
+    </div>
+  </header>
+
+  <!-- Main Screen Content Area -->
+  <main class="flex-1 p-4 overflow-y-auto">
+    
+    <!-- Navigation Options / Screens -->
+    <div class="space-y-4">
+      <h2 class="text-sm font-semibold text-zinc-400">CREATE OPTIONS (PREVIEW)</h2>
+
+      <!-- Create Option Card 1 -->
+      <div class="bg-card p-4 rounded-xl flex items-center gap-4 cursor-pointer hover:bg-zinc-800">
+        <i class="fa-solid fa-file-arrow-up text-xl text-[#00C853]"></i>
+        <div>
+          <h3 class="font-medium">Upload a video</h3>
+          <p class="text-xs text-zinc-400">Upload MP4, MOV, or MKV files</p>
+        </div>
+      </div>
+
+      <!-- Create Option Card 2 -->
+      <div class="bg-card p-4 rounded-xl flex items-center gap-4 cursor-pointer hover:bg-zinc-800">
+        <i class="fa-solid fa-bolt text-xl text-[#00C853]"></i>
+        <div>
+          <h3 class="font-medium">Create a Short</h3>
+          <p class="text-xs text-zinc-400">Short vertical Islamic videos</p>
+        </div>
+      </div>
+
+      <!-- Video Details Input Preview -->
+      <div class="bg-card p-4 rounded-xl space-y-3 mt-6">
+        <h3 class="font-semibold text-[#00C853] text-sm">Upload Video Form</h3>
+        <input type="text" placeholder="Title: Heart Touching Naat Sharif 2026" class="w-full bg-zinc-900 border border-zinc-700 rounded-lg p-2 text-sm focus:outline-none focus:border-[#00C853]">
+        <textarea placeholder="Description: Very beautiful Naat Sharif..." class="w-full bg-zinc-900 border border-zinc-700 rounded-lg p-2 text-sm h-20 focus:outline-none focus:border-[#00C853]"></textarea>
+        <button class="w-full bg-[#00C853] text-black font-bold py-2 rounded-lg text-sm">Upload Video</button>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Bottom Navigation Bar -->
+  <nav class="flex justify-around items-center p-3 bg-[#0F0F0F] border-t border-zinc-800 text-xs">
+    <div class="flex flex-col items-center text-[#00C853] cursor-pointer">
+      <i class="fa-solid fa-house text-lg"></i>
+      <span>Home</span>
+    </div>
+    <div class="flex flex-col items-center text-zinc-400 cursor-pointer">
+      <i class="fa-solid fa-layer-group text-lg"></i>
+      <span>Shorts</span>
+    </div>
+    <div class="flex flex-col items-center text-[#00C853] cursor-pointer">
+      <i class="fa-solid fa-circle-plus text-3xl"></i>
+    </div>
+    <div class="flex flex-col items-center text-zinc-400 cursor-pointer">
+      <i class="fa-solid fa-folder-open text-lg"></i>
+      <span>Library</span>
+    </div>
+  </nav>
+
+</body>
+  </html>
+                                                                                                       
