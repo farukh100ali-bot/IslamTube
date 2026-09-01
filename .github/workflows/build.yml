@@ -22,9 +22,19 @@ jobs:
         with:
           channel: 'stable'
 
-      - name: Create Flutter App Structure
+      - name: Create Flutter Project Skeleton
         run: |
-          flutter create . --force
+          mkdir temp_app
+          cd temp_app
+          flutter create islam_tube
+          cp -r islam_tube/android ../
+          cp -r islam_tube/ios ../
+          cp -r islam_tube/web ../
+          cd ..
+          rm -rf temp_app
+
+      - name: Get Dependencies
+        run: flutter pub get
 
       - name: Build APK
         run: flutter build apk --release
