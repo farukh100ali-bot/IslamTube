@@ -1,15 +1,16 @@
-name: Build Android APK
+name: Build APK and Live Web Preview
 
 on:
   push:
     branches: [ main ]
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -30,6 +31,15 @@ jobs:
           rm -rf * .github
           flutter create --org com.islamtube.app --project-name islam_tube .
           mkdir -p .github/workflows
+
+      - name: Build Web for Live Preview
+        run: flutter build web --release
+
+      - name: Deploy Live Web Link
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build/web
 
       - name: Build Release APK
         run: flutter build apk --release
