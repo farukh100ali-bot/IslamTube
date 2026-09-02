@@ -26,14 +26,8 @@ jobs:
         with:
           channel: 'stable'
 
-      - name: Create Complete Flutter App
-        run: |
-          rm -rf * .github
-          flutter create --org com.islamtube.app --project-name islam_tube .
-          mkdir -p .github/workflows
-
       - name: Build Web for Live Preview
-        run: flutter build web --release
+        run: flutter build web --release --base-href "/IslamTube/"
 
       - name: Deploy Live Web Link
         uses: peaceiris/actions-gh-pages@v3
